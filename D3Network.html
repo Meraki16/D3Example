@@ -124,8 +124,6 @@
                         dy = graphdata[d.target.id].y - graphdata[d.source.id].y,
                         dr = Math.sqrt(dx * dx + dy * dy);
 
-                    console.log("M" + graphdata[d.source.id].x + "," + graphdata[d.source.id].y + "A" + dr + "," + dr + " 0 0,1 " + graphdata[d.target.id].x + "," + graphdata[d.target.id].y);
-
                     return "M" + graphdata[d.source.id].x + "," + graphdata[d.source.id].y + "A" + dr + "," + dr + " 0 0,1 " + graphdata[d.target.id].x + "," + graphdata[d.target.id].y;
                 });
             });
