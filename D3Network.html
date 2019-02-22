@@ -4,43 +4,45 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <script src="http://d3js.org/d3.v2.min.js?2.9.3"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+    <!--<script src="http://d3js.org/d3.v2.min.js?2.9.3"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>-->
+    <script src="scripts/d3.min.js"></script>
+    <script src="scripts/topojson.js"></script>
+    <script src="scripts/datamaps.world.hires.js"></script>
     <style>
         .link {
             stroke: #aaa;
         }
-        
+
         .node text {
             stroke: #333;
             cursor: pointer;
         }
-        
-        .node circle {
+
+        /*.node ellipse {
             stroke: #fff;
             stroke-width: 3px;
-            fill: #555;
-        }
+            fill: #f00;
+        }*/
     </style>
 </head>
-
 <body>
-
+    <div id="container" style="position: relative;width: 1400px; height: 800px;"></div>
     <script type="text/javascript">
-        var width = 960,
-            height = 500
+        var width = window.innerWidth, height = window.innerHeight
 
-        var svg = d3.select("body").append("svg")
-            .attr("width", width)
-            .attr("height", height);
-
+        var map = new Datamap({ element: document.getElementById('container'), height: height, width: width });
+        var svg = map.svg;
         var force = d3.layout.force()
             .gravity(.05)
             .distance(100)
             .charge(-100)
             .size([width, height]);
-
-        d3.json("graphFile.json", function(json) {
+        var graphdata = {};
+        d3.json("GraphData.json", function (error, graph) {
+            Object.assign(graphdata, graph.nodes);
+        })
+        d3.json("GraphData.json", function (json) {
             force
                 .nodes(json.nodes)
                 .links(json.links)
@@ -48,9 +50,24 @@
 
             var link = svg.selectAll(".link")
                 .data(json.links)
-                .enter().append("line")
+                .enter().append("path")
                 .attr("class", "link")
-                .style("stroke-width", function(d) {
+                .style("fill", "none")
+                .style("stroke", function (d) {
+                    if (d.source.tempStart == 1 && d.source.tempEnd == 3 && d.target.tempStart == 1 && d.target.tempEnd == 3) {
+                        return "yellow"
+                    }
+                    else {
+                        if (d.source.tempStart == 3 && d.source.tempEnd == 5 && d.target.tempStart == 1 && d.target.tempEnd == 3) {
+                            return "orange"
+                        }
+                        else {
+                            return "Red"
+                        }
+                    }
+                })
+                .attr("pointer-events", "visibleStroke")
+                .style("stroke-width", function (d) {
                     return Math.sqrt(d.weight);
                 });
 
@@ -59,33 +76,57 @@
                 .enter().append("g")
                 .attr("class", "node")
                 .call(force.drag);
-
-            node.append("circle")
-                .attr("r", "5");
-
+            node.append("ellipse")
+                .attr("rx", "120")
+                .attr("ry", "30")
+                .attr('cx', function (d) { return json.nodes.px; })
+                .attr('cy', function (d) { return json.nodes.py; })
+                .style("fill-opacity", 0.6)
+                .style("stroke-width", 3)
+                .style("stroke", function (d) {
+                    if (d.tempStart == 1 && d.tempEnd == 3) {
+                        return "yellow"
+                    } else {
+                        if (d.tempStart == 3 && d.tempEnd == 5) {
+                            return "orange"
+                        }
+                        else {
+                            return "Red"
+                        }
+                    }
+                })
+                .attr('fill', function (d) {
+                    if (d.tempStart == 1 && d.tempEnd == 3) {
+                        return "yellow"
+                    } else {
+                        if (d.tempStart == 3 && d.tempEnd == 5) {
+                            return "orange"
+                        }
+                        else {
+                            return "Red"
+                        }
+                    }
+                });
             node.append("text")
-                .attr("dx", 12)
-                .attr("dy", ".35em")
-                .text(function(d) {
+                .attr("dx", json.nodes.x)
+                .attr("dy", json.nodes.y)
+                .text(function (d) {
                     return d.name
                 });
 
-            force.on("tick", function() {
-                link.attr("x1", function(d) {
-                        return d.source.x;
-                    })
-                    .attr("y1", function(d) {
-                        return d.source.y;
-                    })
-                    .attr("x2", function(d) {
-                        return d.target.x;
-                    })
-                    .attr("y2", function(d) {
-                        return d.target.y;
-                    });
+            node.attr("transform", function (d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
 
-                node.attr("transform", function(d) {
-                    return "translate(" + d.x + "," + d.y + ")";
+            force.on("tick", function () {
+                link.attr("d", function (d) {
+                    var dx = graphdata[d.target.id].x - graphdata[d.source.id].x,
+                        dy = graphdata[d.target.id].y - graphdata[d.source.id].y,
+                        dr = Math.sqrt(dx * dx + dy * dy);
+
+                    console.log("M" + graphdata[d.source.id].x + "," + graphdata[d.source.id].y + "A" + dr + "," + dr + " 0 0,1 " + graphdata[d.target.id].x + "," + graphdata[d.target.id].y);
+
+                    return "M" + graphdata[d.source.id].x + "," + graphdata[d.source.id].y + "A" + dr + "," + dr + " 0 0,1 " + graphdata[d.target.id].x + "," + graphdata[d.target.id].y;
                 });
             });
         });
