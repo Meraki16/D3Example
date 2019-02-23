@@ -121,11 +121,58 @@
        });
    });
 
-   window.addEventListener('scroll', function() {
 
-       //if temp value
-       svg.selectAll(".group-1").select("ellipse")
-           .attr("transform", function() {
-               return "scale(" + pageYOffset / 100 + ")";
-           })
-   });
+
+   var waypoint1 = new Waypoint({
+       element: document.getElementById('timeline-1'),
+       handler: function(direction) {
+           window.addEventListener('scroll', function() {
+               if (pageYOffset < document.getElementById('timeline-2').offsetTop && pageYOffset > document.getElementById('timeline-1').offsetTop) {
+                   svg.selectAll(".group-1").select("ellipse")
+                       .attr("transform", function() {
+                           return "scale(" + (pageYOffset - document.getElementById('timeline-1').offsetTop) / 100 + ")";
+                       })
+               }
+           });
+       }
+   })
+
+   var waypoint2 = new Waypoint({
+       element: document.getElementById('timeline-2'),
+       handler: function(direction) {
+           window.addEventListener('scroll', function() {
+               if (pageYOffset < document.getElementById('timeline-3').offsetTop && pageYOffset > document.getElementById('timeline-2').offsetTop) {
+                   svg.selectAll(".group-2").select("ellipse")
+                       .attr("transform", function() {
+                           return "scale(" + (pageYOffset - document.getElementById('timeline-2').offsetTop) / 100 + ")";
+                       })
+               }
+           });
+       }
+   })
+
+   var waypoint3 = new Waypoint({
+       element: document.getElementById('timeline-3'),
+       handler: function(direction) {
+           window.addEventListener('scroll', function() {
+               if (pageYOffset > document.getElementById('timeline-3').offsetTop) {
+                   svg.selectAll(".group-3").select("ellipse")
+                       .attr("transform", function() {
+                           return "scale(" + (pageYOffset - document.getElementById('timeline-3').offsetTop) / 100 + ")";
+                       })
+               }
+           });
+       }
+   })
+
+
+
+
+   //    window.addEventListener('scroll', function() {
+
+   //        //if temp value
+   //        svg.selectAll(".group-1").select("ellipse")
+   //            .attr("transform", function() {
+   //                return "scale(" + pageYOffset / 100 + ")";
+   //            })
+   //    });
