@@ -61,9 +61,7 @@
                }
            })
            .attr("pointer-events", "visibleStroke")
-           .style("stroke-width", function(d) {
-               return Math.sqrt(d.weight);
-           });
+           .style("stroke-width", 1);
 
        node.append("ellipse")
            .attr("rx", "5")
@@ -75,7 +73,7 @@
                return json.nodes.py;
            })
            .style("fill-opacity", 0.6)
-           .style("stroke-width", 3)
+           //    .style("stroke-width", 3)
            // .style("stroke", function(d) {
            //     if (d.tempStart == 1 && d.tempEnd == 3) {
            //         return "yellow"
@@ -130,8 +128,11 @@
                if (pageYOffset < document.getElementById('timeline-2').offsetTop && pageYOffset > document.getElementById('timeline-1').offsetTop) {
                    svg.selectAll(".group-1").select("ellipse")
                        .attr("transform", function() {
-                           return "scale(" + (pageYOffset - document.getElementById('timeline-1').offsetTop) / 100 + ")";
+                           return "scale(" + (pageYOffset - document.getElementById('timeline-1').offsetTop) / 70 + ")";
                        })
+
+                   //    svg.selectAll(".link").
+                   //    attr("stroke-width", (pageYOffset - document.getElementById('timeline-1').offsetTop) )
                }
            });
        }
@@ -144,7 +145,7 @@
                if (pageYOffset < document.getElementById('timeline-3').offsetTop && pageYOffset > document.getElementById('timeline-2').offsetTop) {
                    svg.selectAll(".group-2").select("ellipse")
                        .attr("transform", function() {
-                           return "scale(" + (pageYOffset - document.getElementById('timeline-2').offsetTop) / 100 + ")";
+                           return "scale(" + (pageYOffset - document.getElementById('timeline-2').offsetTop) / 70 + ")";
                        })
                }
            });
@@ -158,7 +159,7 @@
                if (pageYOffset > document.getElementById('timeline-3').offsetTop) {
                    svg.selectAll(".group-3").select("ellipse")
                        .attr("transform", function() {
-                           return "scale(" + (pageYOffset - document.getElementById('timeline-3').offsetTop) / 100 + ")";
+                           return "scale(" + (pageYOffset - document.getElementById('timeline-3').offsetTop) / 20 + ")";
                        })
                }
            });

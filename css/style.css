@@ -11,19 +11,19 @@ body {
 
 #timeline-1 {
     height: 1000px;
-    background: yellow;
+    background: linear-gradient(yellow, orange);
     width: 20px;
 }
 
 #timeline-2 {
     height: 1000px;
-    background: orange;
+    background: linear-gradient(orange, red);
     width: 20px;
 }
 
 #timeline-3 {
     height: 1000px;
-    background: red;
+    background: linear-gradient(red, black);
     width: 20px;
 }
 
