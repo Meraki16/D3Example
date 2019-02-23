@@ -44,25 +44,26 @@
            })
            .call(force.drag);
 
+       // create paths linking the nodes
        var link = svg.selectAll(".link")
            .data(json.links)
            .enter().append("path")
-           .attr("class", "link")
-           .style("fill", "none")
-           .style("stroke", function(d) {
+           .attr("class", function(d) {
                if (d.source.tempStart == 1 && d.source.tempEnd == 3 && d.target.tempStart == 1 && d.target.tempEnd == 3) {
-                   return "yellow"
+                   return "link-group-1"
                } else {
                    if (d.source.tempStart == 3 && d.source.tempEnd == 5 && d.target.tempStart == 1 && d.target.tempEnd == 3) {
-                       return "orange"
+                       return "link-group-2"
                    } else {
-                       return "Red"
+                       return "link-group-3"
                    }
                }
            })
+           .style("fill", "none")
            .attr("pointer-events", "visibleStroke")
            .style("stroke-width", 1);
 
+       // create ellipse for each process
        node.append("ellipse")
            .attr("rx", "5")
            .attr("ry", "3")
@@ -73,30 +74,8 @@
                return json.nodes.py;
            })
            .style("fill-opacity", 0.6)
-           //    .style("stroke-width", 3)
-           // .style("stroke", function(d) {
-           //     if (d.tempStart == 1 && d.tempEnd == 3) {
-           //         return "yellow"
-           //     } else {
-           //         if (d.tempStart == 3 && d.tempEnd == 5) {
-           //             return "orange"
-           //         } else {
-           //             return "Red"
-           //         }
-           //     }
-           // })
-           .attr('fill', function(d) {
-               if (d.tempStart == 1 && d.tempEnd == 3) {
-                   return "yellow"
-               } else {
-                   if (d.tempStart == 3 && d.tempEnd == 5) {
-                       return "orange"
-                   } else {
-                       return "Red"
-                   }
-               }
-           });
 
+       // create text with the name of each process
        node.append("text")
            .attr("dx", json.nodes.x)
            .attr("dy", json.nodes.y)
@@ -131,8 +110,10 @@
                            return "scale(" + (pageYOffset - document.getElementById('timeline-1').offsetTop) / 70 + ")";
                        })
 
-                   //    svg.selectAll(".link").
-                   //    attr("stroke-width", (pageYOffset - document.getElementById('timeline-1').offsetTop) )
+                   svg.selectAll(".link-group-1").
+                   style("stroke-width", function() {
+                       return (pageYOffset - document.getElementById('timeline-1').offsetTop) / 150
+                   });
                }
            });
        }
@@ -147,6 +128,11 @@
                        .attr("transform", function() {
                            return "scale(" + (pageYOffset - document.getElementById('timeline-2').offsetTop) / 70 + ")";
                        })
+
+                   svg.selectAll(".link-group-2").
+                   style("stroke-width", function() {
+                       return (pageYOffset - document.getElementById('timeline-2').offsetTop) / 150
+                   });
                }
            });
        }
@@ -161,6 +147,10 @@
                        .attr("transform", function() {
                            return "scale(" + (pageYOffset - document.getElementById('timeline-3').offsetTop) / 20 + ")";
                        })
+                   svg.selectAll(".link-group-3").
+                   style("stroke-width", function() {
+                       return (pageYOffset - document.getElementById('timeline-3').offsetTop) / 150
+                   });
                }
            });
        }

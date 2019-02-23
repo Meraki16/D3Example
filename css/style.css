@@ -27,18 +27,34 @@ body {
     width: 20px;
 }
 
-.link {
-    stroke: #aaa;
+.group-1 ellipse {
+    fill: yellow;
+}
+
+.group-2 ellipse {
+    fill: orange;
+}
+
+.group-3 ellipse {
+    fill: red;
+}
+
+.link-group-1 {
+    stroke: yellow !important;
+    stroke-opacity: 0.6;
+}
+
+.link-group-2 {
+    stroke: orange !important;
+    stroke-opacity: 0.6;
+}
+
+.link-group-3 {
+    stroke: red !important;
+    stroke-opacity: 0.6;
 }
 
 .node text {
     stroke: #333;
     cursor: pointer;
 }
-
-
-/*.node ellipse {
-    stroke: #fff;
-    stroke-width: 3px;
-    fill: #f00;
-}*/
