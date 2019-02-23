@@ -1,6 +1,6 @@
    // create map
-   var width = window.innerWidth,
-       height = window.innerHeight
+   var width = (window.innerWidth * 0.98),
+       height = (window.innerHeight * 0.98);
 
    var map = new Datamap({
        element: document.getElementById('map'),
@@ -87,17 +87,17 @@
            //         }
            //     }
            // })
-           // .attr('fill', function(d) {
-           //     if (d.tempStart == 1 && d.tempEnd == 3) {
-           //         return "yellow"
-           //     } else {
-           //         if (d.tempStart == 3 && d.tempEnd == 5) {
-           //             return "orange"
-           //         } else {
-           //             return "Red"
-           //         }
-           //     }
-           // });
+           .attr('fill', function(d) {
+               if (d.tempStart == 1 && d.tempEnd == 3) {
+                   return "yellow"
+               } else {
+                   if (d.tempStart == 3 && d.tempEnd == 5) {
+                       return "orange"
+                   } else {
+                       return "Red"
+                   }
+               }
+           });
 
        node.append("text")
            .attr("dx", json.nodes.x)
@@ -164,15 +164,3 @@
            });
        }
    })
-
-
-
-
-   //    window.addEventListener('scroll', function() {
-
-   //        //if temp value
-   //        svg.selectAll(".group-1").select("ellipse")
-   //            .attr("transform", function() {
-   //                return "scale(" + pageYOffset / 100 + ")";
-   //            })
-   //    });
