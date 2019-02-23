@@ -1,0 +1,32 @@
+body {
+    position: relative;
+}
+
+.container {
+    position: sticky;
+    top: 0;
+    width: 1400px;
+    height: 800px;
+}
+
+.timeline {
+    height: 5000px;
+    background: red;
+    width: 20px;
+}
+
+.link {
+    stroke: #aaa;
+}
+
+.node text {
+    stroke: #333;
+    cursor: pointer;
+}
+
+
+/*.node ellipse {
+    stroke: #fff;
+    stroke-width: 3px;
+    fill: #f00;
+}*/
