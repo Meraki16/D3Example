@@ -5,7 +5,14 @@
    var map = new Datamap({
        element: document.getElementById('map'),
        height: height,
-       width: width
+       width: width,
+       fills: {
+           defaultFill: 'rgba(219, 219, 219, 1)' // Any hex, color name or rgb/rgba value
+       },
+       geographyConfig: {
+           highlightOnHover: false,
+           popupOnHover: false
+       }
    });
 
    var svg = map.svg;
@@ -105,6 +112,7 @@
        handler: function(direction) {
            window.addEventListener('scroll', function() {
                if (pageYOffset < document.getElementById('timeline-2').offsetTop && pageYOffset > document.getElementById('timeline-1').offsetTop) {
+                   console.log((pageYOffset - document.getElementById('timeline-1').offsetTop) / 70);
                    svg.selectAll(".group-1").select("ellipse")
                        .attr("transform", function() {
                            return "scale(" + (pageYOffset - document.getElementById('timeline-1').offsetTop) / 70 + ")";

@@ -9,15 +9,15 @@
             "color": ""
         },
         { "id": 1, "name": "Arctic Summer Sea-ice", "tempStart": 1, "tempEnd": 3, "x": 870, "y": 137 },
-        { "id": 2, "name": "Alpine Glaciers", "tempStart": 1, "tempEnd": 3, "x": 1032, "y": 246 },
-        { "id": 3, "name": "Coral Reefs", "tempStart": 1, "tempEnd": 3, "x": 1544, "y": 505 },
-        { "id": 4, "name": "West Antarctic Ice Sheet", "tempStart": 1, "tempEnd": 3, "x": 580, "y": 733 },
+        { "id": 2, "name": "Alpine Glaciers", "tempStart": 1, "tempEnd": 3, "x": 850, "y": 246 },
+        { "id": 3, "name": "Coral Reefs", "tempStart": 1, "tempEnd": 3, "x": 1330, "y": 480 },
+        { "id": 4, "name": "West Antarctic Ice Sheet", "tempStart": 1, "tempEnd": 3, "x": 480, "y": 733 },
         {
             "id": 5,
             "name": "Boreal Forest",
             "tempStart": 3,
             "tempEnd": 5,
-            "x": 145,
+            "x": 155,
             "y": 175
         },
         {
@@ -33,7 +33,7 @@
             "name": "El Nino Southern Oscillation",
             "tempStart": 3,
             "tempEnd": 5,
-            "x": 300,
+            "x": 150,
             "y": 350
         },
         {
@@ -41,15 +41,15 @@
             "name": "Thermohaline Circulation",
             "tempStart": 3,
             "tempEnd": 5,
-            "x": 633,
-            "y": 326
+            "x": 580,
+            "y": 280
         },
         {
             "id": 9,
             "name": "Amazon Rainforest",
             "tempStart": 3,
             "tempEnd": 5,
-            "x": 579,
+            "x": 520,
             "y": 468
         },
         {
@@ -57,15 +57,15 @@
             "name": "Sahel",
             "tempStart": 3,
             "tempEnd": 5,
-            "x": 950,
-            "y": 386
+            "x": 800,
+            "y": 340
         },
         {
             "id": 11,
             "name": "Indian Summer Monsoon",
             "tempStart": 3,
             "tempEnd": 5,
-            "x": 1220,
+            "x": 1080,
             "y": 352
         },
         {
@@ -81,7 +81,7 @@
             "name": "Permafrost",
             "tempStart": 5,
             "tempEnd": 99,
-            "x": 1349,
+            "x": 1149,
             "y": 165
         },
         {
@@ -89,7 +89,7 @@
             "name": "East Antartic Ice Sheet",
             "tempStart": 5,
             "tempEnd": 99,
-            "x": 965,
+            "x": 1100,
             "y": 716
         }
     ],

@@ -1,5 +1,7 @@
 body {
     position: relative;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
 }
 
 .container {
