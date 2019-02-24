@@ -1,6 +1,6 @@
    // create map
-   var width = (window.innerWidth * 0.98),
-       height = (window.innerHeight * 0.98);
+   var width = (window.innerWidth * 0.96),
+       height = (window.innerHeight * 1);
 
    var map = new Datamap({
        element: document.getElementById('map'),
