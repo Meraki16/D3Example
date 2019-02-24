@@ -72,8 +72,8 @@
 
        // create ellipse for each process
        node.append("ellipse")
-           .attr("rx", "5")
-           .attr("ry", "3")
+           .attr("rx", "6")
+           .attr("ry", "2.5")
            //    .attr('cx', function(d) {
            //        return json.nodes.px;
            //    })
@@ -84,6 +84,8 @@
 
        // create text with the name of each process
        node.append("text")
+           .attr("text-anchor", "middle")
+           .attr("dy", ".3em")
            //    .attr("dx", json.nodes.x)
            //    .attr("dy", json.nodes.y)
            .text(function(d) {
@@ -114,10 +116,10 @@
 
                if (pageYOffset < document.getElementById('timeline-2').offsetTop &&
                    pageYOffset > document.getElementById('timeline-1').offsetTop &&
-                   ((pageYOffset - document.getElementById('timeline-1').offsetTop) / 70) >= 1) {
+                   ((pageYOffset - document.getElementById('timeline-1').offsetTop) / 55) >= 1) {
                    svg.selectAll(".group-1").select("ellipse")
                        .attr("transform", function() {
-                           return "scale(" + (pageYOffset - document.getElementById('timeline-1').offsetTop) / 70 + ")";
+                           return "scale(" + (pageYOffset - document.getElementById('timeline-1').offsetTop) / 55 + ")";
                        })
 
                    if (((pageYOffset - document.getElementById('timeline-1').offsetTop) / 150) >= 1) {
@@ -138,10 +140,10 @@
 
                if (pageYOffset < document.getElementById('timeline-3').offsetTop &&
                    pageYOffset > document.getElementById('timeline-2').offsetTop &&
-                   ((pageYOffset - document.getElementById('timeline-2').offsetTop) / 70) >= 1) {
+                   ((pageYOffset - document.getElementById('timeline-2').offsetTop) / 55) >= 1) {
                    svg.selectAll(".group-2").select("ellipse")
                        .attr("transform", function() {
-                           return "scale(" + (pageYOffset - document.getElementById('timeline-2').offsetTop) / 70 + ")";
+                           return "scale(" + (pageYOffset - document.getElementById('timeline-2').offsetTop) / 55 + ")";
                        })
 
                    if (((pageYOffset - document.getElementById('timeline-2').offsetTop) / 150) >= 1) {
@@ -163,7 +165,7 @@
                if (pageYOffset > document.getElementById('timeline-3').offsetTop) {
                    svg.selectAll(".group-3").select("ellipse")
                        .attr("transform", function() {
-                           return "scale(" + (pageYOffset - document.getElementById('timeline-3').offsetTop) / 20 + ")";
+                           return "scale(" + (pageYOffset - document.getElementById('timeline-3').offsetTop) / 15 + ")";
                        })
 
                    if (((pageYOffset - document.getElementById('timeline-3').offsetTop) / 55) >= 1) {
