@@ -74,18 +74,18 @@
        node.append("ellipse")
            .attr("rx", "5")
            .attr("ry", "3")
-           .attr('cx', function(d) {
-               return json.nodes.px;
-           })
-           .attr('cy', function(d) {
-               return json.nodes.py;
-           })
+           //    .attr('cx', function(d) {
+           //        return json.nodes.px;
+           //    })
+           //    .attr('cy', function(d) {
+           //        return json.nodes.py;
+           //    })
            .style("fill-opacity", 0.6)
 
        // create text with the name of each process
        node.append("text")
-           .attr("dx", json.nodes.x)
-           .attr("dy", json.nodes.y)
+           //    .attr("dx", json.nodes.x)
+           //    .attr("dy", json.nodes.y)
            .text(function(d) {
                return d.name
            });
