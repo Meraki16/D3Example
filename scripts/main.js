@@ -109,72 +109,76 @@
 
 
 
-   var waypoint1 = new Waypoint({
-       element: document.getElementById('timeline-1'),
-       handler: function(direction) {
-           window.addEventListener('scroll', function() {
 
-               if (pageYOffset < document.getElementById('timeline-2').offsetTop &&
-                   pageYOffset > document.getElementById('timeline-1').offsetTop &&
-                   ((pageYOffset - document.getElementById('timeline-1').offsetTop) / 55) >= 1) {
-                   svg.selectAll(".group-1").select("ellipse")
-                       .attr("transform", function() {
-                           return "scale(" + (pageYOffset - document.getElementById('timeline-1').offsetTop) / 55 + ")";
-                       })
+// handle scrolling and trigger stroke width and ellipse size adaptions
 
-                   if (((pageYOffset - document.getElementById('timeline-1').offsetTop) / 150) >= 1) {
-                       svg.selectAll(".link-group-1").
-                       style("stroke-width", function() {
-                           return (pageYOffset - document.getElementById('timeline-1').offsetTop) / 150
-                       });
-                   }
-               }
-           });
-       }
-   })
+window.addEventListener('scroll', function () {
+    if (pageYOffset < document.getElementById('timeline-1').offsetTop) {
 
-   var waypoint2 = new Waypoint({
-       element: document.getElementById('timeline-2'),
-       handler: function(direction) {
-           window.addEventListener('scroll', function() {
+        keepEllipseSizeAtOne('1');
+        keepEllipseSizeAtOne('2');
+        keepEllipseSizeAtOne('3');
 
-               if (pageYOffset < document.getElementById('timeline-3').offsetTop &&
-                   pageYOffset > document.getElementById('timeline-2').offsetTop &&
-                   ((pageYOffset - document.getElementById('timeline-2').offsetTop) / 55) >= 1) {
-                   svg.selectAll(".group-2").select("ellipse")
-                       .attr("transform", function() {
-                           return "scale(" + (pageYOffset - document.getElementById('timeline-2').offsetTop) / 55 + ")";
-                       })
+    }
 
-                   if (((pageYOffset - document.getElementById('timeline-2').offsetTop) / 150) >= 1) {
-                       svg.selectAll(".link-group-2").
-                       style("stroke-width", function() {
-                           return (pageYOffset - document.getElementById('timeline-2').offsetTop) / 150
-                       });
-                   }
-               }
-           });
-       }
-   })
+    else if (pageYOffset < document.getElementById('timeline-2').offsetTop && pageYOffset >= document.getElementById('timeline-1').offsetTop && ((pageYOffset - document.getElementById('timeline-1').offsetTop) / 55) >= 1) {
 
-   var waypoint3 = new Waypoint({
-       element: document.getElementById('timeline-3'),
-       handler: function(direction) {
-           window.addEventListener('scroll', function() {
+        adaptStrokeWidth('1', 150);
 
-               if (pageYOffset > document.getElementById('timeline-3').offsetTop) {
-                   svg.selectAll(".group-3").select("ellipse")
-                       .attr("transform", function() {
-                           return "scale(" + (pageYOffset - document.getElementById('timeline-3').offsetTop) / 15 + ")";
-                       })
+        changeEllipseSize('1', 55);
+        keepEllipseSizeAtOne('2');
+        keepEllipseSizeAtOne('3');
 
-                   if (((pageYOffset - document.getElementById('timeline-3').offsetTop) / 55) >= 1) {
-                       svg.selectAll(".link-group-3").
-                       style("stroke-width", function() {
-                           return (pageYOffset - document.getElementById('timeline-3').offsetTop) / 55
-                       });
-                   }
-               }
-           });
-       }
-   })
+    }
+    else if (pageYOffset < document.getElementById('timeline-3').offsetTop && pageYOffset >= document.getElementById('timeline-2').offsetTop && ((pageYOffset - document.getElementById('timeline-2').offsetTop) / 55) >= 1) {
+
+        adaptStrokeWidth('2', 150);
+
+        keepEllipseSize('1', 55);
+        changeEllipseSize('2', 55);
+        keepEllipseSizeAtOne('3');
+
+    }
+    else if (pageYOffset >= document.getElementById('timeline-3').offsetTop && ((pageYOffset - document.getElementById('timeline-3').offsetTop) / 15) >= 1) {
+
+        adaptStrokeWidth('3', 55);
+
+        keepEllipseSize('1', 55);
+        keepEllipseSize('2', 55);
+        changeEllipseSize('3', 15);
+    }
+
+});
+
+
+var keepEllipseSizeAtOne = function (groupNumber) {
+    svg.selectAll(".group-" + groupNumber).select("ellipse")
+        .attr("transform", function () {
+            return "scale(" + 1 + ")";
+        })
+}
+
+var changeEllipseSize = function (groupNumber, factor) {
+    svg.selectAll(".group-" + groupNumber).select("ellipse")
+        .attr("transform", function () {
+            return "scale(" + (pageYOffset - document.getElementById('timeline-' + groupNumber).offsetTop) / factor + ")";
+        })
+}
+
+
+var keepEllipseSize = function (groupNumber, factor) {
+    svg.selectAll(".group-" + groupNumber).select("ellipse")
+        .attr("transform", function () {
+            return "scale(" + (document.getElementById('timeline-' + (parseInt(groupNumber) + 1)).offsetTop - document.getElementById('timeline-' + groupNumber).offsetTop) / factor + ")";
+        })
+}
+
+
+var adaptStrokeWidth = function (timelineNumber, factor) {
+    if (((pageYOffset - document.getElementById('timeline-' + timelineNumber).offsetTop) / factor) >= 1) {
+        svg.selectAll(".link-group-" + timelineNumber).
+            style("stroke-width", function () {
+                return (pageYOffset - document.getElementById('timeline-' + timelineNumber).offsetTop) / factor;
+            });
+    }
+}
