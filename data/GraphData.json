@@ -6,12 +6,39 @@
             "tempEnd": 3,
             "x": 640,
             "y": 69,
-            "color": ""
         },
-        { "id": 1, "name": "Arctic Summer Sea-ice", "tempStart": 1, "tempEnd": 3, "x": 870, "y": 137 },
-        { "id": 2, "name": "Alpine Glaciers", "tempStart": 1, "tempEnd": 3, "x": 850, "y": 246 },
-        { "id": 3, "name": "Coral Reefs", "tempStart": 1, "tempEnd": 3, "x": 1330, "y": 480 },
-        { "id": 4, "name": "West Antarctic Ice Sheet", "tempStart": 1, "tempEnd": 3, "x": 480, "y": 733 },
+        {
+            "id": 1,
+            "name": "Arctic Summer Sea-ice",
+            "tempStart": 1,
+            "tempEnd": 3,
+            "x": 870,
+            "y": 137
+        },
+        {
+            "id": 2,
+            "name": "Alpine Glaciers",
+            "tempStart": 1,
+            "tempEnd": 3,
+            "x": 850,
+            "y": 246
+        },
+        {
+            "id": 3,
+            "name": "Coral Reefs",
+            "tempStart": 1,
+            "tempEnd": 3,
+            "x": 1330,
+            "y": 480
+        },
+        {
+            "id": 4,
+            "name": "West Antarctic Ice Sheet",
+            "tempStart": 1,
+            "tempEnd": 3,
+            "x": 480,
+            "y": 733
+        },
         {
             "id": 5,
             "name": "Boreal Forest",
