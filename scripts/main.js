@@ -90,7 +90,7 @@ d3.csv("data/temperatureData.csv", function(error, data) {
             if (d3.event.keyCode == 49) {
                 //1 key press
                 start_index = 0;
-                end_index = 145;
+                end_index = 272;
                 section = data.slice(start_index, end_index);
 
                 drawSection(section, line);
@@ -132,7 +132,7 @@ function drawSection(data, line) {
 
 function transition(path) {
     path.transition()
-        .duration(2000)
+        .duration(3000)
         .attrTween("stroke-dasharray", tweenDash);
 }
 
