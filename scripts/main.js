@@ -40,14 +40,17 @@ var svg = d3.select("#graph").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+var allData;
+
 d3.csv("data/temperatureData.csv", function(error, data) {
     if (error) throw error;
     console.log(data);
-
     data.forEach(function(d) {
         d.Year = d.Year;
         d.Annomaly = +d.Annomaly;
     });
+
+    allData = data;
 
 
     // creates axis accordingly to the min and max values of the data
@@ -83,44 +86,44 @@ d3.csv("data/temperatureData.csv", function(error, data) {
     //     .attr("class", "line")
     //     .attr("d", line)
     //     .call(transition);
-
-    d3.select("body")
-        .on("keydown", function() {
-            var section;
-            if (d3.event.keyCode == 49) {
-                //1 key press
-                start_index = 0;
-                end_index = 272;
-                section = data.slice(start_index, end_index);
-
-                drawSection(section, line);
-
-            } else if (d3.event.keyCode == 50) {
-                //2 key press
-                start_index = 144;
-                end_index = 200;
-                section = data.slice(start_index, end_index);
-
-                drawSection(section, line);
-
-            } else if (d3.event.keyCode == 51) {
-                //3 key press
-                start_index = 199;
-                end_index = 234;
-                section = data.slice(start_index, end_index);
-
-                drawSection(section, line);
-
-            } else if (d3.event.keyCode == 52) {
-                //4 key press
-                start_index = 233;
-                end_index = 272;
-                section = data.slice(start_index, end_index);
-
-                drawSection(section, line);
-            }
-        });
 });
+
+d3.select("body")
+    .on("keydown", function() {
+        var section;
+        if (d3.event.keyCode == 49) {
+            //1 key press
+            start_index = 0;
+            end_index = 145;
+            section = allData.slice(start_index, end_index);
+
+            drawSection(section, line);
+
+        } else if (d3.event.keyCode == 50) {
+            //2 key press
+            start_index = 144;
+            end_index = 200;
+            section = allData.slice(start_index, end_index);
+
+            drawSection(section, line);
+
+        } else if (d3.event.keyCode == 51) {
+            //3 key press
+            start_index = 199;
+            end_index = 234;
+            section = allData.slice(start_index, end_index);
+
+            drawSection(section, line);
+
+        } else if (d3.event.keyCode == 52) {
+            //4 key press
+            start_index = 233;
+            end_index = 272;
+            section = allData.slice(start_index, end_index);
+
+            drawSection(section, line);
+        }
+    });
 
 function drawSection(data, line) {
     svg.append("path")
