@@ -1,9 +1,37 @@
 body {
-    font: 10px sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
     background-color: black !important;
 }
 
-.axis,
+h1 {
+    /* font-family: 'Noto Sans JP', sans-serif; */
+    /* font-family: 'Candal', sans-serif; */
+    /* font-family: 'Francois One', sans-serif; */
+    font-family: 'Archivo Black', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 72px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 24px;
+    text-align: center;
+    color: #FFFFFF;
+    margin: 0px 100px 200px 100px;
+}
+
+.axis text {
+    fill: white;
+}
+
 .axis path,
 .axis line {
     fill: none;
