@@ -15,6 +15,7 @@ h1 {
     font-size: 72px;
     text-align: center;
     color: #FFFFFF;
+    padding-top: 100px;
 }
 
 .subtitle {
@@ -46,21 +47,30 @@ h1 {
     stroke-width: 1.5px;
 }
 
-#graph {
+#introSection {
+    z-index: 999;
+    background-color: black;
+    height: 100%;
+}
+
+#mapSection {
     position: fixed;
     z-index: -1;
     width: 100%;
-    height: 50px;
+    height: 0px;
     top: 0;
     left: 0;
 }
 
-#introSection {
+#finalSection {
     z-index: 999;
-
+    background-color: black;
+    height: 100%;
 }
 
+
 /************************** style for pagination/dot navigation ***************************/
+
 .pagination {
     position: fixed;
     right: 20px;
@@ -70,58 +80,57 @@ h1 {
     z-index: 10;
 }
 
-    .pagination a {
-        display: block;
-        height: 20px;
-        margin-bottom: 5px;
-        color: white;
-        position: relative;
-        padding: 4px;
-    }
+.pagination a {
+    display: block;
+    height: 20px;
+    margin-bottom: 5px;
+    color: white;
+    position: relative;
+    padding: 4px;
+}
 
-        .pagination a.active:after {
-            box-shadow: inset 0 0 0 5px;
-        }
+.pagination a.active:after {
+    box-shadow: inset 0 0 0 5px;
+}
 
-        .pagination a .hover-text {
-            position: absolute;
-            right: 15px;
-            top: 7px;
-            opacity: 0;
-            -webkit-transition: opacity 0.5s ease;
-            transition: opacity 0.5s ease;
-            padding-right: 15px;
-        }
+.pagination a .hover-text {
+    position: absolute;
+    right: 15px;
+    top: 7px;
+    opacity: 0;
+    -webkit-transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease;
+    padding-right: 15px;
+}
 
-        .pagination a:hover .hover-text {
-            opacity: 1;
-        }
+.pagination a:hover .hover-text {
+    opacity: 1;
+}
 
-        .pagination a:after {
-            -webkit-transition: box-shadow 0.5s ease;
-            transition: box-shadow 0.5s ease;
-            width: 10px;
-            height: 10px;
-            display: block;
-            border: 1px solid;
-            border-radius: 50%;
-            content: '';
-            position: absolute;
-            margin: auto;
-            top: 0;
-            right: 4px;
-            bottom: 0;
-        }
+.pagination a:after {
+    -webkit-transition: box-shadow 0.5s ease;
+    transition: box-shadow 0.5s ease;
+    width: 10px;
+    height: 10px;
+    display: block;
+    border: 1px solid;
+    border-radius: 50%;
+    content: '';
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 4px;
+    bottom: 0;
+}
 
 
 /************************ Arrow *****************************/
 
-
 @keyframes arrow {
-    0%,100% {
+    0%,
+    100% {
         top: 10px;
     }
-
     50% {
         top: 30px;
     }
