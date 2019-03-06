@@ -155,8 +155,19 @@ function animateGraphSection4() {
 };
 
 
+/****************** Text animations ******************** */
 
+function animateText1() {
+    $("#text1").animate({
+        bottom: 200
+    });
+};
 
+function animateText2() {
+    $("#text2").animate({
+        bottom: 500
+    });
+};
 
 
 /***************************************** SCROLLIFY ***********************************************/
@@ -179,7 +190,6 @@ $.scrollify({
         } else {
             $(".pagination").css({ "visibility": "visible" });
         }
-
     },
     afterRender: function() {
         var pagination = "<ul class=\"pagination\">";
@@ -218,18 +228,26 @@ $.scrollify({
     after: function(i, panels) {
         var section, start_index, end_index;
         if (i == 1) {
+
+            // animateText1();
             animateGraphSection1();
+
         } else if (i == 2) {
+
+            // animateText2();
             animateGraphSection2();
+
         } else if (i == 3) {
+
             animateGraphSection3();
+
         } else if (i == 4) {
+
             animateGraphSection4();
+
         }
     },
 });
-
-
 
 $(".scroll,.scroll-btn").click(function(e) {
     e.preventDefault();
@@ -240,6 +258,9 @@ $(".scroll,.scroll-btn").click(function(e) {
 $(document).ready(function() {
     $(".pagination").css({ "visibility": "hidden" });
 });
+
+
+
 
 
 
