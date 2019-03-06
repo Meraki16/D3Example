@@ -105,7 +105,8 @@ function transition(path) {
         .transition()
         .duration(2000)
         .ease("linear")
-        .attr("stroke-dashoffset", 0);
+        .attr("stroke-dashoffset", 0)
+        .each("end", restartScroll);
 
     // path.transition()
     //     .duration(2000)
@@ -119,6 +120,16 @@ function transition(path) {
 //         return i(t);
 //     };
 // }
+
+function restartScroll() {
+    $('.pagination').show();
+    $.scrollify.enable();
+}
+
+function stopScroll() {
+    $('.pagination').hide();
+    $.scrollify.disable();
+}
 
 /************* Graph animations functions **************/
 
@@ -229,19 +240,27 @@ $.scrollify({
         var section, start_index, end_index;
         if (i == 1) {
 
+            stopScroll();
+
             // animateText1();
             animateGraphSection1();
 
         } else if (i == 2) {
+
+            stopScroll();
 
             // animateText2();
             animateGraphSection2();
 
         } else if (i == 3) {
 
+            stopScroll();
+
             animateGraphSection3();
 
         } else if (i == 4) {
+
+            stopScroll();
 
             animateGraphSection4();
 
