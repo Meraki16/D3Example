@@ -6,8 +6,6 @@
     <title></title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="scripts/bootstrap-4.3.1-dist/css/bootstrap-grid.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Candal|Francois+One" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Montserrat" rel="stylesheet">
     <script src="scripts/d3/d3.min.js"></script>
 
@@ -28,18 +26,15 @@
                 </div>
             </div>
             <!-- arrow -->
-            <a href="#overview" class="scroll"></a>
+            <a href="#panel1" class="scroll"></a>
         </div>
     </section>
 
 
-    <section class="panel panel1" data-section-name="second">
+    <section class="panel panel1" data-section-name="0-1C">
         <div id="mapSection">
-
             <div class=".container-fluid">
-
                 <div class="row">
-
                     <div class="col-lg-3">
                         <div class="col-lg-12">
                             <div id="graph"></div>
@@ -67,31 +62,29 @@
 
                 </div>
             </div>
-
-            <div id="arrow"></div>
         </div>
-
     </section>
 
-    <section class="panel panel2" data-section-name="third">
+    <section class="panel panel2" id="third" data-section-name="1-3C">
     </section>
 
-    <section class="panel panel3" data-section-name="fourth">
+    <section class="panel panel3" data-section-name="3-5C">
     </section>
-    <section class="panel panel4" data-section-name="fifth">
+    <section class="panel panel4" data-section-name="+5C">
     </section>
 
     <section class="panel end" data-section-name="end">
         <div id="finalSection" class=".container-fluid">
-            <h1>YOU DIE</h1>
+            <h1>THE POINT OF NO RETURN</h1>
+            <div id="finalGraph"></div>
+            <div class="subtitle">What will you do to change the future?</div>
         </div>
     </section>
 </body>
 
-<script src="scripts/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="scripts/Scrollify/jquery.scrollify.js"></script>
-<script src="scripts/customScrollify.js"></script>
+<script src="scripts/main.js"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 </html>

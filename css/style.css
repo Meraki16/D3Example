@@ -5,9 +5,6 @@ body {
 }
 
 h1 {
-    /* font-family: 'Noto Sans JP', sans-serif; */
-    /* font-family: 'Candal', sans-serif; */
-    /* font-family: 'Francois One', sans-serif; */
     font-family: 'Archivo Black', sans-serif;
     font-style: normal;
     font-weight: normal;
@@ -23,10 +20,10 @@ h1 {
     font-style: normal;
     font-weight: normal;
     line-height: normal;
-    font-size: 24px;
+    font-size: 20px;
     text-align: center;
     color: #FFFFFF;
-    margin: 0px 100px 200px 100px;
+    margin: 0px 250px 200px 250px;
 }
 
 .axis text {
@@ -143,7 +140,7 @@ h1 {
     position: absolute;
     margin: auto;
     top: 10px;
-    bottom: -300px;
+    bottom: -700px;
     right: 0;
     left: 0;
     -webkit-animation: 3s arrow infinite ease;
