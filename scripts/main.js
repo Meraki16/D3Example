@@ -121,15 +121,6 @@ function transition(path) {
 //     };
 // }
 
-function restartScroll() {
-    $('.pagination').show();
-    $.scrollify.enable();
-}
-
-function stopScroll() {
-    $('.pagination').hide();
-    $.scrollify.disable();
-}
 
 /************* Graph animations functions **************/
 
@@ -268,7 +259,7 @@ $.scrollify({
     },
 });
 
-$(".scroll,.scroll-btn").click(function(e) {
+$(".scroll, .scroll-btn").click(function(e) {
     e.preventDefault();
     $.scrollify.next();
 });
@@ -279,7 +270,15 @@ $(document).ready(function() {
 });
 
 
+function restartScroll() {
+    $('.pagination').show();
+    $.scrollify.enable();
+}
 
+function stopScroll() {
+    $('.pagination').hide();
+    $.scrollify.disable();
+}
 
 
 
