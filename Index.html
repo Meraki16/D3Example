@@ -8,24 +8,38 @@
     <link rel="stylesheet" type="text/css" href="scripts/bootstrap-4.3.1-dist/css/bootstrap-grid.min.css">
     <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Montserrat" rel="stylesheet">
     <script src="scripts/d3/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/102/three.min.js"></script>
     <!-- <script src="https://d3js.org/d3.v5.min.js"></script> -->
 
 </head>
 
 <body>
     <section class="panel home" data-section-name="home">
+
         <div id="intro-section" class=".container-fluid">
             <div class="col-lg-12">
                 <h1>THE POINT OF NO RETURN</h1>
                 <div class="subtitle">
-                    A temperature rise has been observed since the pre-industrial times and different pathways have been projected regarding Earth’s future. Consider the climate at intermediate temperature rises and direct human degradation. Consider the natural processes
-                    on our planet and how they can affect each other. What if these processes entered a state of continuous influence between one another causing higher temperature rises, even when human emissions are reduced?
+                    A significant temperature rise has been observed since pre-industrial times due to human actions and degradation of the environment. Regarding Earth’s future, different pathways have been projected.
+                    </br>
+                    Think about the climate at intermediate temperature rises; the effects of global warming that are already visible.
+                    Now, consider that Earth is a complex ecosystem whose processes affect each other.
+                    What if these processes entered a state of continuous mutual influence causing higher temperature rises, even if human emissions were reduced?
                     </br>
                     </br>
                     Meet our tipping point - the threshold for abrupt and irreversible change.
 
+                    <!-- globe -->
+                    <div id="webgl"></div>
+                    <script src="scripts/webgl-earth/js/Detector.js"></script>
+                    <script src="scripts/globeScript.js"></script>
                 </div>
+
+
             </div>
+
+
+
             <!-- arrow -->
             <a href="#panel1" class="scroll"></a>
         </div>

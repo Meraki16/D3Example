@@ -373,10 +373,10 @@ $(".scroll, .scroll-btn").click(function(e) {
     $.scrollify.next();
 });
 
-// /* when document is loaded, hide the navigation dots */
-// $(document).ready(function() {
-//     $(".pagination").css({ "visibility": "hidden" });
-// });
+ /* when document is loaded, hide the navigation dots */
+ $(document).ready(function() {
+     $(".pagination").css({ "visibility": "hidden" });
+ });
 
 function restartScroll() {
     $('.pagination').show();
