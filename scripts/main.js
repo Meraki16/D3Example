@@ -89,11 +89,12 @@ d3.csv("data/temperatureData.csv", function(error, data) {
 });
 
 
-function drawSection(data, line) {
+function drawSection(data, line, id) {
     svg.append("path")
         .datum(data)
         .attr("class", "line")
         .attr("d", line)
+        .attr("id", id)
         .call(transition);
 }
 
@@ -128,8 +129,9 @@ function animateGraphSection1() {
     var start_index = 0;
     var end_index = 145;
     var section = allData.slice(start_index, end_index);
-
-    drawSection(section, line);
+    d3.select("#section2").remove();
+    d3.select("#section1").remove();
+    drawSection(section, line, "section1");
 };
 
 function animateGraphSection2() {
@@ -137,7 +139,9 @@ function animateGraphSection2() {
     var end_index = 200;
     var section = allData.slice(start_index, end_index);
 
-    drawSection(section, line);
+    d3.select("#section3").remove();
+    d3.select("#section2").remove();
+    drawSection(section, line, "section2");
 };
 
 function animateGraphSection3() {
@@ -145,7 +149,9 @@ function animateGraphSection3() {
     var end_index = 234;
     var section = allData.slice(start_index, end_index);
 
-    drawSection(section, line);
+    d3.select("#section4").remove();
+    d3.select("#section3").remove();
+    drawSection(section, line, "section3");
 };
 
 function animateGraphSection4() {
@@ -153,7 +159,8 @@ function animateGraphSection4() {
     var end_index = 272;
     var section = allData.slice(start_index, end_index);
 
-    drawSection(section, line);
+    d3.select("#section4").remove();
+    drawSection(section, line, "section4");
 };
 
 
