@@ -73,10 +73,6 @@ d3.csv('data/temperatureData.csv')
         throw error;
     })
 
-var t = d3.transition()
-    .duration(750)
-    .ease(d3.easeLinear);
-
 function drawSectionMainGraph(data, line, id) {
     mainGraph.append("path")
         .data([data])
