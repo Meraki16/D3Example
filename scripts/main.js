@@ -1,5 +1,35 @@
 /*************************************** GRAPH *********************************************/
 
+
+/**** load all data ****/
+var allTempData;
+var stabilisedData;
+
+// get historic + hot house earth temperatures data
+d3.csv("data/temperatureData.csv", function(error, data) {
+    if (error) throw error;
+    console.log(data);
+    data.forEach(function(d) {
+        d.Year = d.Year;
+        d.Annomaly = +d.Annomaly;
+    });
+
+    allTempData = data;
+});
+
+// get stabilised earth temperatures data
+d3.csv("data/stabilisedData.csv", function(error, data) {
+    if (error) throw error;
+    console.log(data);
+    data.forEach(function(d) {
+        d.Year = d.Year;
+        d.Annomaly = +d.Annomaly;
+    });
+    stabilisedData = data;
+});
+
+
+/***** set axis for graph of historic + hot house data ****/
 var margin = {
         top: 60,
         right: 20,
@@ -34,63 +64,35 @@ var line = d3.svg.line()
         return y(d.Annomaly);
     });
 
-var svg = d3.select("#graph").append("svg")
+// creates fixed values on the axis
+x.domain([1880, 2150]).nice();
+y.domain([0, 9]).nice();
+
+
+/****** sets graph of historic + hot house data *****/
+var graph = d3.select("#graph").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var allData;
+graph.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
 
-d3.csv("data/temperatureData.csv", function(error, data) {
-    if (error) throw error;
-    console.log(data);
-    data.forEach(function(d) {
-        d.Year = d.Year;
-        d.Annomaly = +d.Annomaly;
-    });
-
-    allData = data;
-
-
-    // creates axis accordingly to the min and max values of the data
-    // x.domain(d3.extent(data, function(d) {
-    //     return d.Year;
-    // }));
-    // y.domain(d3.extent(data, function(d) {
-    //     return d.Annomaly;
-    // }));
-
-    // creates fixed values on the axis
-    x.domain([1880, 2150]).nice();
-    y.domain([0, 9]).nice();
-
-
-    svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
-
-    svg.append("g")
-        .attr("class", "y axis")
-        .call(yAxis)
-        .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        .text("temperature");
-
-    // svg.append("path")
-    //     .datum(data)
-    //     .attr("class", "line")
-    //     .attr("d", line)
-    //     .call(transition);
-});
-
+graph.append("g")
+    .attr("class", "y axis")
+    .call(yAxis)
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", ".71em")
+    .style("text-anchor", "end")
+    .text("temperature");
 
 function drawSection(data, line, id) {
-    svg.append("path")
+    graph.append("path")
         .datum(data)
         .attr("class", "line")
         .attr("d", line)
@@ -104,23 +106,14 @@ function transition(path) {
     path.attr("stroke-dasharray", totalLength + " " + totalLength)
         .attr("stroke-dashoffset", totalLength)
         .transition()
-        .duration(2000)
+        .duration(3000)
         .ease("linear")
         .attr("stroke-dashoffset", 0)
         .each("end", restartScroll);
-
-    // path.transition()
-    //     .duration(2000)
-    //     .attrTween("stroke-dasharray", tweenDash);
 }
 
-// function tweenDash() {
-//     var l = this.getTotalLength(),
-//         i = d3.interpolateString("0," + l, l + "," + l);
-//     return function(t) {
-//         return i(t);
-//     };
-// }
+
+/********* sets graph for stabilised data + historic ***********/
 
 
 /************* Graph animations functions **************/
@@ -128,7 +121,7 @@ function transition(path) {
 function animateGraphSection1() {
     var start_index = 0;
     var end_index = 145;
-    var section = allData.slice(start_index, end_index);
+    var section = allTempData.slice(start_index, end_index);
     d3.select("#section2").remove();
     d3.select("#section1").remove();
     drawSection(section, line, "section1");
@@ -137,7 +130,7 @@ function animateGraphSection1() {
 function animateGraphSection2() {
     var start_index = 144;
     var end_index = 200;
-    var section = allData.slice(start_index, end_index);
+    var section = allTempData.slice(start_index, end_index);
 
     d3.select("#section3").remove();
     d3.select("#section2").remove();
@@ -147,7 +140,7 @@ function animateGraphSection2() {
 function animateGraphSection3() {
     var start_index = 199;
     var end_index = 234;
-    var section = allData.slice(start_index, end_index);
+    var section = allTempData.slice(start_index, end_index);
 
     d3.select("#section4").remove();
     d3.select("#section3").remove();
@@ -157,12 +150,16 @@ function animateGraphSection3() {
 function animateGraphSection4() {
     var start_index = 233;
     var end_index = 272;
-    var section = allData.slice(start_index, end_index);
+    var section = allTempData.slice(start_index, end_index);
 
     d3.select("#section4").remove();
     drawSection(section, line, "section4");
 };
 
+function animateGraphConclusion() {
+
+    $("#graph").css('z-index', '999');
+}
 
 /****************** Text animations ******************** */
 
@@ -262,6 +259,9 @@ $.scrollify({
 
             animateGraphSection4();
 
+        } else if (i == 5) {
+
+            animateGraphConclusion();
         }
     },
 });
