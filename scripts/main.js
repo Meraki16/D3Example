@@ -1,4 +1,4 @@
-/*************************************** GRAPH *********************************************/
+/*************************************** MAIN GRAPH *********************************************/
 
 var margin = {
         top: 60,
@@ -28,7 +28,7 @@ var line = d3.line()
         return y(d.Annomaly);
     });
 
-var svg = d3.select("#graph").append("svg")
+var mainGraph = d3.select("#main-graph").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -52,26 +52,22 @@ d3.csv('data/temperatureData.csv')
         y.domain([0, 9]).nice();
 
 
-        svg.append("g")
+        mainGraph.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
             .call(xAxis);
 
-        svg.append("g")
+        mainGraph.append("g")
             .attr("class", "y axis")
             .call(yAxis)
             .append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", ".71em")
+            // .attr("transform", "rotate(-90)")
+            // .attr("y", 10)
+            .attr("dy", "1em")
+            .attr("dx", "-0.5em")
             .style("text-anchor", "end")
-            .text("temperature");
+            .text("°C");
 
-        // svg.append("path")
-        //     .data([data])
-        //     .attr("class", "line")
-        //     .attr("d", line);
-        // .call(transition);
     })
     .catch(function(error) {
         throw error;
@@ -81,8 +77,8 @@ var t = d3.transition()
     .duration(750)
     .ease(d3.easeLinear);
 
-function drawSection(data, line, id) {
-    svg.append("path")
+function drawSectionMainGraph(data, line, id) {
+    mainGraph.append("path")
         .data([data])
         .attr("class", "line")
         .attr("d", line)
@@ -100,75 +96,199 @@ function transition(path) {
         .ease(d3.easeLinear)
         .attr("stroke-dashoffset", 0)
         .on("end", restartScroll);
-
-    // path.transition()
-    //     .duration(2000)
-    //     .attrTween("stroke-dasharray", tweenDash);
 }
 
-// function tweenDash() {
-//     var l = this.getTotalLength(),
-//         i = d3.interpolateString("0," + l, l + "," + l);
-//     return function(t) {
-//         return i(t);
-//     };
-// }
+
+
+
+
+
+
+
+
+
+/*********************** FINAL GRAPH ********************* */
+
+
+var marginFinalGraph = {
+        top: 20,
+        right: 20,
+        bottom: 30,
+        left: 50
+    },
+    widthFinalGraph = 750 - marginFinalGraph.left - marginFinalGraph.right,
+    heightFinalGraph = 400 - marginFinalGraph.top - marginFinalGraph.bottom;
+
+var xFinalGraph = d3.scaleLinear().range([0, widthFinalGraph]);
+
+var yFinalGraph = d3.scaleLinear().range([heightFinalGraph, 0]);
+
+var xAxisFinalGraph = d3.axisBottom(xFinalGraph)
+    .tickValues([1880, 2018, 2100])
+    .tickFormat(d3.format("d"));
+
+var yAxisFinalGraph = d3.axisLeft(yFinalGraph)
+    .tickValues([0, 1, 3, 5]);
+
+var lineFinalGraph = d3.line()
+    .x(function(d) {
+        return xFinalGraph(d.Year);
+    })
+    .y(function(d) {
+        return yFinalGraph(d.Annomaly);
+    });
+
+var finalGraph = d3.select("#finalGraph").append("svg")
+    .attr("width", widthFinalGraph + marginFinalGraph.left + marginFinalGraph.right)
+    .attr("height", heightFinalGraph + marginFinalGraph.top + marginFinalGraph.bottom)
+    .append("g")
+    .attr("transform", "translate(" + marginFinalGraph.left + "," + marginFinalGraph.top + ")");
+
+var stabilisedData;
+
+d3.csv('data/stabilisedData.csv')
+    .then(function(data) {
+        console.log(data);
+
+        data.forEach(function(d) {
+            d.Year = d.Year;
+            d.Annomaly = +d.Annomaly;
+        });
+
+        stabilisedData = data;
+
+        // creates fixed values on the axis
+        xFinalGraph.domain([1880, 2150]).nice();
+        yFinalGraph.domain([0, 9]).nice();
+
+        finalGraph.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + heightFinalGraph + ")")
+            .call(xAxisFinalGraph);
+
+        finalGraph.append("g")
+            .attr("class", "y axis")
+            .call(yAxisFinalGraph)
+            .append("text")
+            // .attr("transform", "rotate(-90)")
+            // .attr("y", 10)
+            .attr("dy", "1em")
+            .attr("dx", "-0.5em")
+            .style("text-anchor", "end")
+            .text("°C");
+
+        finalGraph.append("path")
+            .data([allData])
+            .attr("class", "line")
+            .attr("d", lineFinalGraph)
+
+        // finalGraph.append("path")
+        //     .data([stabilisedData])
+        //     .attr("class", "line")
+        //     .attr("d", lineFinalGraph)
+
+    })
+    .catch(function(error) {
+        throw error;
+    })
+
+
+function drawSectionFinalGraph(data, line, id) {
+    finalGraph.append("path")
+        .data([data])
+        .attr("class", "line")
+        .attr("d", line)
+        .attr("id", id)
+        .call(transition);
+}
 
 
 /************* Graph animations functions **************/
 
-function animateGraphSection1() {
+function mainGraphAnimationSection1() {
     var start_index = 0;
     var end_index = 145;
     var section = allData.slice(start_index, end_index);
     d3.select("#section2").remove();
     d3.select("#section1").remove();
-    drawSection(section, line, "section1");
+    drawSectionMainGraph(section, line, "section1");
 };
 
-function animateGraphSection2() {
+function mainGraphAnimationSection2() {
     var start_index = 144;
     var end_index = 200;
     var section = allData.slice(start_index, end_index);
 
     d3.select("#section3").remove();
     d3.select("#section2").remove();
-    drawSection(section, line, "section2");
+    drawSectionMainGraph(section, line, "section2");
 };
 
-function animateGraphSection3() {
+function mainGraphAnimationSection3() {
     var start_index = 199;
     var end_index = 234;
     var section = allData.slice(start_index, end_index);
 
     d3.select("#section4").remove();
     d3.select("#section3").remove();
-    drawSection(section, line, "section3");
+    drawSectionMainGraph(section, line, "section3");
 };
 
-function animateGraphSection4() {
+function mainGraphAnimationSection4() {
     var start_index = 233;
     var end_index = 272;
     var section = allData.slice(start_index, end_index);
 
     d3.select("#section4").remove();
-    drawSection(section, line, "section4");
+    drawSectionMainGraph(section, line, "section4");
 };
 
 
-/****************** Text animations ******************** */
+function animateFinalGraph() {
+    d3.select("#stabilised").remove();
+    drawSectionFinalGraph(stabilisedData, lineFinalGraph, "stabilised");
 
-function animateText1() {
-    $("#text1").animate({
-        bottom: 200
-    });
-};
+    // finalGraph.append("circle")
+    //     .attr("class", "tipping-point")
+    //     .attr("cx", 1.21)
+    //     .attr("cy", 2024)
+    //     .attr("r", 10);
 
-function animateText2() {
-    $("#text2").animate({
-        bottom: 500
-    });
-};
+}
+
+
+
+
+
+
+
+
+/*************************************** LAUNCH ANIMATION FUNCTIONS *********************************/
+
+
+function section1Animation() {
+    stopScroll();
+    mainGraphAnimationSection1();
+}
+
+function section2Animation() {
+    stopScroll();
+    mainGraphAnimationSection2();
+}
+
+function section3Animation() {
+
+    stopScroll();
+    mainGraphAnimationSection3();
+}
+
+function section4Animation() {
+
+    stopScroll();
+    mainGraphAnimationSection4();
+}
+
+
 
 
 /***************************************** SCROLLIFY ***********************************************/
@@ -230,29 +350,23 @@ $.scrollify({
         var section, start_index, end_index;
         if (i == 1) {
 
-            stopScroll();
-
-            // animateText1();
-            animateGraphSection1();
+            section1Animation();
 
         } else if (i == 2) {
 
-            stopScroll();
-
-            // animateText2();
-            animateGraphSection2();
+            section2Animation();
 
         } else if (i == 3) {
 
-            stopScroll();
-
-            animateGraphSection3();
+            section3Animation();
 
         } else if (i == 4) {
 
-            stopScroll();
+            section4Animation();
 
-            animateGraphSection4();
+        } else if (i == 5) {
+
+            animateFinalGraph();
 
         }
     },
@@ -263,11 +377,10 @@ $(".scroll, .scroll-btn").click(function(e) {
     $.scrollify.next();
 });
 
-/* when document is loaded, hide the navigation dots */
-$(document).ready(function() {
-    $(".pagination").css({ "visibility": "hidden" });
-});
-
+// /* when document is loaded, hide the navigation dots */
+// $(document).ready(function() {
+//     $(".pagination").css({ "visibility": "hidden" });
+// });
 
 function restartScroll() {
     $('.pagination').show();
