@@ -28,6 +28,8 @@ h1 {
 
 .axis text {
     fill: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
 }
 
 .axis path,
@@ -35,7 +37,7 @@ h1 {
     fill: none;
     stroke: white;
     shape-rendering: crispEdges;
-    stroke-width: 0.5px;
+    stroke-width: 0.7px;
 }
 
 .line {
@@ -48,6 +50,7 @@ h1 {
     z-index: 999;
     background-color: black;
     height: 100%;
+    width: 100%;
 }
 
 #mapSection {
@@ -63,6 +66,7 @@ h1 {
     z-index: 999;
     background-color: black;
     height: 100%;
+    width: 100%;
 }
 
 .sectionText {
