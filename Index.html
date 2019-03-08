@@ -3,28 +3,28 @@
 
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>THE POINT OF NO RETURN</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="scripts/bootstrap-4.3.1-dist/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="scripts/jquery-pie-loader-master/jquery-pie-loader.css">
     <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Montserrat" rel="stylesheet">
     <script src="scripts/d3/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/102/three.min.js"></script>
-    <!-- <script src="https://d3js.org/d3.v5.min.js"></script> -->
-
+    <script src="scripts/d3/d3.min.js"></script>
+    <script src="scripts/d3/d3-geo-projection.v2.min.js"></script>
+    <script src="scripts/topojson/topojson.js"></script>
 </head>
 
 <body>
     <section class="panel home" data-section-name="home">
-
         <div id="intro-section" class=".container-fluid">
             <div class="col-lg-12">
                 <h1>THE POINT OF NO RETURN</h1>
                 <div class="subtitle">
                     A significant temperature rise has been observed since pre-industrial times due to human actions and degradation of the environment. Regarding Earth’s future, different pathways have been projected.
                     </br>
-                    Think about the climate at intermediate temperature rises; the effects of global warming that are already visible.
-                    Now, consider that Earth is a complex ecosystem whose processes affect each other.
-                    What if these processes entered a state of continuous mutual influence causing higher temperature rises, even if human emissions were reduced?
+                    Think about the climate at intermediate temperature rises; the effects of global warming that are already visible. Now, consider that Earth is a complex ecosystem whose processes affect each other. What if these processes entered a state of continuous
+                    mutual influence causing higher temperature rises, even if human emissions were reduced?
                     </br>
                     </br>
                     Meet our tipping point - the threshold for abrupt and irreversible change.
@@ -37,16 +37,12 @@
                     </div>
                 </div>
 
-
             </div>
-
-
 
             <!-- arrow -->
             <a href="#panel1" class="scroll"></a>
         </div>
     </section>
-
     <section class="panel panel1" data-section-name="0-1C">
         <div id="map-section">
             <div class=".container-fluid">
@@ -57,11 +53,11 @@
                     <div class="col-lg-8">
                         <div id="map">map</div>
                     </div>
-
                     <div class="col-lg-1">
-                        <div id="sliders">sliders</div>
+                        <div id="timer">
+                            <div id="my-timer" class="svg-pie"></div>
+                        </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -72,7 +68,6 @@
             </div>
         </div>
     </section>
-
     <section class="panel panel2" id="third" data-section-name="1-3C">
         <div class="col-lg-3">
             <div id="text2" class="section-text">
@@ -81,7 +76,6 @@
             </div>
         </div>
     </section>
-
     <section class="panel panel3" data-section-name="3-5C">
         <div class="col-lg-3">
             <div id="text3" class="section-text">
@@ -90,7 +84,6 @@
             </div>
         </div>
     </section>
-
     <section class="panel panel4" data-section-name="+5C">
         <div class="col-lg-3">
             <div id="text4" class="section-text">
@@ -99,7 +92,6 @@
             </div>
         </div>
     </section>
-
     <section class="panel end" data-section-name="end">
         <div id="final-section" class=".container-fluid">
             <h2>THE POINT OF NO RETURN</h2>
@@ -108,9 +100,9 @@
         </div>
     </section>
 </body>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="scripts/Scrollify/jquery.scrollify.js"></script>
+<script type="text/javascript" src="scripts/jquery-pie-loader-master/jquery-pie-loader.js"></script>
 <script src="scripts/main.js"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 

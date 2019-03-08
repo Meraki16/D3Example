@@ -1,3 +1,65 @@
+/************************** MAP ****************************/
+
+var width = 1024,
+    height = 1000;
+var projection = d3.geoKavrayskiy7().scale(165);
+var path = d3.geoPath(projection);
+var graticule = d3.geoGraticule();
+var svg = d3.select("#map").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+svg.append("defs").append("path")
+    .datum({ type: "Sphere" })
+    .attr("id", "sphere")
+    .attr("d", path);
+svg.append("use")
+    .attr("class", "stroke")
+    .attr("xlink:href", "#sphere");
+svg.append("use")
+    .attr("class", "fill")
+    .attr("xlink:href", "#sphere");
+svg.append("path")
+    .datum(graticule)
+    .attr("class", "graticule")
+    .attr("d", path);
+d3.json("data/world-110m.json").then(function(world) {
+    console.log(world);
+    svg.insert("path", ".graticule")
+        .datum(topojson.feature(world, world.objects.land))
+        .attr("class", "land")
+        .attr("d", path);
+});
+d3.json("data/GraphData.json").then(function(json) {
+    svg.selectAll("circle")
+        .data(json.nodes)
+        .enter()
+        .append("circle")
+        .attr("cx", function(d) {
+            console.log(projection([d.x, d.y])[0]);
+            return projection([d.x, d.y])[0];
+        })
+        .attr("cy", function(d) {
+            console.log(projection([d.x, d.y])[1]);
+            return projection([d.x, d.y])[1];
+        })
+        .attr("r", 5)
+        .style("fill", "red");
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*************************************** MAIN GRAPH *********************************************/
 
 var margin = {
@@ -73,9 +135,19 @@ d3.csv('data/temperatureData.csv')
         throw error;
     })
 
-var t = d3.transition()
-    .duration(750)
-    .ease(d3.easeLinear);
+
+function transition(path) {
+    var totalLength = path.node().getTotalLength();
+
+    path.attr("stroke-dasharray", totalLength + " " + totalLength)
+        .attr("stroke-dashoffset", totalLength)
+        .transition()
+        .duration(4000)
+        .ease(d3.easeLinear)
+        .attr("stroke-dashoffset", 0)
+        .on("end", animationCallback);
+}
+
 
 function drawSectionMainGraph(data, line, id) {
     mainGraph.append("path")
@@ -86,17 +158,7 @@ function drawSectionMainGraph(data, line, id) {
         .call(transition);
 }
 
-function transition(path) {
-    var totalLength = path.node().getTotalLength();
 
-    path.attr("stroke-dasharray", totalLength + " " + totalLength)
-        .attr("stroke-dashoffset", totalLength)
-        .transition()
-        .duration(2000)
-        .ease(d3.easeLinear)
-        .attr("stroke-dashoffset", 0)
-        .on("end", restartScroll);
-}
 
 
 
@@ -198,6 +260,7 @@ function drawSectionFinalGraph(data, line, id) {
         .data([data])
         .attr("class", "line")
         .attr("d", line)
+        .attr("fill", "green")
         .attr("id", id)
         .call(transition);
 }
@@ -267,24 +330,22 @@ function animateFinalGraph() {
 
 
 function section1Animation() {
-    stopScroll();
+    animationStart();
     mainGraphAnimationSection1();
 }
 
 function section2Animation() {
-    stopScroll();
+    animationStart();
     mainGraphAnimationSection2();
 }
 
 function section3Animation() {
-
-    stopScroll();
+    animationStart();
     mainGraphAnimationSection3();
 }
 
 function section4Animation() {
-
-    stopScroll();
+    animationStart();
     mainGraphAnimationSection4();
 }
 
@@ -349,25 +410,15 @@ $.scrollify({
     after: function(i, panels) {
         var section, start_index, end_index;
         if (i == 1) {
-
             section1Animation();
-
         } else if (i == 2) {
-
             section2Animation();
-
         } else if (i == 3) {
-
             section3Animation();
-
         } else if (i == 4) {
-
             section4Animation();
-
         } else if (i == 5) {
-
             animateFinalGraph();
-
         }
     },
 });
@@ -377,22 +428,47 @@ $(".scroll, .scroll-btn").click(function(e) {
     $.scrollify.next();
 });
 
- /* when document is loaded, hide the navigation dots */
- $(document).ready(function() {
-     $(".pagination").css({ "visibility": "hidden" });
- });
+/* when document is loaded, hide the navigation dots */
+$(document).ready(function() {
+    $(".pagination").css({ "visibility": "hidden" });
+});
 
-function restartScroll() {
-    $('.pagination').show();
-    $.scrollify.enable();
-}
-
-function stopScroll() {
+function animationStart() {
     $('.pagination').hide();
     $.scrollify.disable();
+    startTimer();
 }
 
+function animationCallback() {
+    $('.pagination').show();
+    $.scrollify.enable();
+    // $('#timer').hide();
+    $("#timer").empty();
+    $("#timer").append('<div id="my-timer" class="svg-pie"></div>');
+}
 
+function startTimer() {
+    // $('#timer').show();
+    $('#my-timer').svgPie({
+
+        // easing
+        easing: 'linear',
+
+        // dimension
+        dimension: 20,
+
+        // percentage
+        percentage: 100,
+
+        // animation speed
+        duration: 4000,
+
+        // callbacks
+        onStart: function() {},
+        onComplete: function() {}
+
+    });
+}
 
 /*
 * jQuery Scrollify
