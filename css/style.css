@@ -104,6 +104,19 @@ h2 {
     top: 400px;
 }
 
+.section-text-full {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 15px;
+    text-align: left;
+    color: #FFFFFF;
+    padding-left: 25px;
+    position: relative;
+    top: 400px;
+}
+
 #finalGraph {
     display: table;
     margin: 0 auto;

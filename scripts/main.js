@@ -428,9 +428,14 @@ $(".scroll, .scroll-btn").click(function(e) {
     $.scrollify.next();
 });
 
-/* when document is loaded, hide the navigation dots */
-$(document).ready(function() {
-    $(".pagination").css({ "visibility": "hidden" });
+/* when document is loaded and current page is start or end, hide the navigation dots */
+$(document).ready(function () {
+    var curSection = $.scrollify.current();
+    var curSecName = $($(curSection).get(0)).attr("data-section-name")
+
+    if (curSecName == "home" || curSecName == "end") {
+        $(".pagination").css({ "visibility": "hidden" });
+    }
 });
 
 function animationStart() {
