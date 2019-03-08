@@ -1,10 +1,12 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>THE POINT OF NO RETURN</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="scripts/bootstrap-4.3.1-dist/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="scripts/jquery-pie-loader-master/jquery-pie-loader.css">
     <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Montserrat" rel="stylesheet">
     <script src="scripts/d3/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/102/three.min.js"></script>
@@ -12,6 +14,7 @@
     <script src="scripts/d3/d3-geo-projection.v2.min.js"></script>
     <script src="scripts/topojson/topojson.js"></script>
 </head>
+
 <body>
     <section class="panel home" data-section-name="home">
         <div id="intro-section" class=".container-fluid">
@@ -20,9 +23,8 @@
                 <div class="subtitle">
                     A significant temperature rise has been observed since pre-industrial times due to human actions and degradation of the environment. Regarding Earth’s future, different pathways have been projected.
                     </br>
-                    Think about the climate at intermediate temperature rises; the effects of global warming that are already visible.
-                    Now, consider that Earth is a complex ecosystem whose processes affect each other.
-                    What if these processes entered a state of continuous mutual influence causing higher temperature rises, even if human emissions were reduced?
+                    Think about the climate at intermediate temperature rises; the effects of global warming that are already visible. Now, consider that Earth is a complex ecosystem whose processes affect each other. What if these processes entered a state of continuous
+                    mutual influence causing higher temperature rises, even if human emissions were reduced?
                     </br>
                     </br>
                     Meet our tipping point - the threshold for abrupt and irreversible change.
@@ -50,7 +52,9 @@
                         <div id="map">map</div>
                     </div>
                     <div class="col-lg-1">
-                        <div id="sliders">sliders</div>
+                        <div id="timer">
+                            <div id="my-timer" class="svg-pie"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,6 +100,8 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="scripts/Scrollify/jquery.scrollify.js"></script>
+<script type="text/javascript" src="scripts/jquery-pie-loader-master/jquery-pie-loader.js"></script>
 <script src="scripts/main.js"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
+
 </html>
