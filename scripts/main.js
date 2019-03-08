@@ -1,3 +1,65 @@
+//************************** MAP ****************************
+
+var width = 1024,
+    height = 1000;
+var projection = d3.geoKavrayskiy7().scale(165);
+var path = d3.geoPath(projection);
+var graticule = d3.geoGraticule();
+var svg = d3.select("#map").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+svg.append("defs").append("path")
+    .datum({ type: "Sphere" })
+    .attr("id", "sphere")
+    .attr("d", path);
+svg.append("use")
+    .attr("class", "stroke")
+    .attr("xlink:href", "#sphere");
+svg.append("use")
+    .attr("class", "fill")
+    .attr("xlink:href", "#sphere");
+svg.append("path")
+    .datum(graticule)
+    .attr("class", "graticule")
+    .attr("d", path);
+d3.json("data/world-110m.json").then(function(world) {
+    console.log(world);
+    svg.insert("path", ".graticule")
+        .datum(topojson.feature(world, world.objects.land))
+        .attr("class", "land")
+        .attr("d", path);
+});
+d3.json("data/GraphData.json").then(function(json) {
+    svg.selectAll("circle")
+        .data(json.nodes)
+        .enter()
+        .append("circle")
+        .attr("cx", function(d) {
+            console.log(projection([d.x, d.y])[0]);
+            return projection([d.x, d.y])[0];
+        })
+        .attr("cy", function(d) {
+            console.log(projection([d.x, d.y])[1]);
+            return projection([d.x, d.y])[1];
+        })
+        .attr("r", 5)
+        .style("fill", "red");
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*************************************** MAIN GRAPH *********************************************/
 
 var margin = {
@@ -373,10 +435,10 @@ $(".scroll, .scroll-btn").click(function(e) {
     $.scrollify.next();
 });
 
- /* when document is loaded, hide the navigation dots */
- $(document).ready(function() {
-     $(".pagination").css({ "visibility": "hidden" });
- });
+/* when document is loaded, hide the navigation dots */
+$(document).ready(function() {
+    $(".pagination").css({ "visibility": "hidden" });
+});
 
 function restartScroll() {
     $('.pagination').show();
