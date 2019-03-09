@@ -26,6 +26,20 @@ h2 {
     padding-top: 50px;
 }
 
+h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 30px;
+    text-align: center;
+    color: #FFFFFF;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 8px;
+    margin-top: 10px;
+}
+
 .subtitle {
     font-family: 'Montserrat', sans-serif;
     font-style: normal;
@@ -368,3 +382,4 @@ h2 {
     color: white;
     display: none;
 }
+
