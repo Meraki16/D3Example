@@ -311,11 +311,20 @@ function animateFinalGraph() {
     d3.select("#stabilised").remove();
     drawSectionFinalGraph(stabilisedData, lineFinalGraph, "stabilised");
 
-    // finalGraph.append("circle")
-    //     .attr("class", "tipping-point")
-    //     .attr("cx", 1.21)
-    //     .attr("cy", 2024)
-    //     .attr("r", 10);
+    finalGraph.append("circle")
+        .attr("class", "tipping-point")
+        .attr("cx", function(d) { return xFinalGraph(2024) })
+        .attr("cy", function(d) { return yFinalGraph(1.21) })
+        .attr("r", 20)
+        .attr("fill", "none")
+        .attr("stroke", "red")
+        .attr("stroke-width", "2.5px")
+    attr("stroke-opacity", 0)
+        .transition()
+        .duration(4000)
+        .ease(d3.easeLinear)
+        .style("stroke-opacity", 1);
+    // .on("end", animationCallback);
 
 }
 
