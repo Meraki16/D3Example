@@ -205,7 +205,7 @@ var marginFinalGraph = {
         left: 50
     },
     widthFinalGraph = 750 - marginFinalGraph.left - marginFinalGraph.right,
-    heightFinalGraph = 400 - marginFinalGraph.top - marginFinalGraph.bottom;
+    heightFinalGraph = 360 - marginFinalGraph.top - marginFinalGraph.bottom;
 
 var xFinalGraph = d3.scaleLinear().range([0, widthFinalGraph]);
 
@@ -334,9 +334,11 @@ function mainGraphAnimationSection4() {
 
 function animateFinalGraph() {
     d3.select("#stabilised").remove();
+    d3.select("#tipping-pt").remove();
     drawSectionFinalGraph(stabilisedData, lineFinalGraph, "stabilised");
 
     finalGraph.append("circle")
+        .attr("id", "tipping-pt")
         .attr("class", "tipping-point")
         .attr("cx", function(d) { return xFinalGraph(2024) })
         .attr("cy", function(d) { return yFinalGraph(1.21) })
@@ -351,6 +353,17 @@ function animateFinalGraph() {
         .style("stroke-opacity", 1);
     // .on("end", animationCallback);
 
+    $(".conclusion-text-1").animate({
+        opacity: 1,
+    }, 2000, function() {
+        // Animation complete.
+    });
+
+    $(".conclusion-text-2").delay(2500).animate({
+        opacity: 1,
+    }, 4000, function() {
+        // Animation complete.
+    });
 }
 
 function removeAllGraphSections() {
@@ -404,7 +417,7 @@ $.scrollify({
     section: ".panel",
     scrollbars: false,
     // easing: 'linear',
-    overflowScroll: true,
+    // overflowScroll: true,
     before: function(i, panels) {
         var ref = panels[i].attr("data-section-name");
         $(".pagination .active").removeClass("active");
@@ -487,20 +500,20 @@ $(document).ready(function() {
 
 function animationStart() {
     $('.pagination').hide();
+    // $('.scroll-section').hide();
     $.scrollify.disable();
     startTimer();
 }
 
 function animationCallback() {
     $('.pagination').show();
+    // $('.scroll-section').show();
     $.scrollify.enable();
-    // $('#timer').hide();
     $("#timer").empty();
     $("#timer").append('<div id="my-timer" class="svg-pie"></div>');
 }
 
 function startTimer() {
-    // $('#timer').show();
     $('#my-timer').svgPie({
 
         // easing

@@ -31,13 +31,29 @@ h3 {
     font-style: normal;
     font-weight: normal;
     line-height: normal;
-    font-size: 30px;
-    text-align: center;
+    font-size: 28px;
+    text-align: left;
     color: #FFFFFF;
     padding-top: 0px;
     padding-bottom: 0px;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
     margin-top: 10px;
+    /* display: inline; */
+}
+
+h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 1100;
+    line-height: normal;
+    font-size: 22px;
+    font-style: italic;
+    text-align: left;
+    color: #FFFFFF;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 25px;
+    margin-top: 0px;
+    /* display: inline; */
 }
 
 .subtitle {
@@ -51,15 +67,33 @@ h3 {
     margin: 0px 250px 0px 250px;
 }
 
-.conclusion-text {
+.conclusion-text-1 {
     font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: normal;
     line-height: normal;
-    font-size: 24px;
+    font-size: 22px;
     text-align: center;
     color: #FFFFFF;
-    margin: 50px 250px 0px 250px;
+    margin: 50px 0px 0px 0px;
+    opacity: 0;
+}
+
+.conclusion-text-2 {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 32px;
+    text-align: center;
+    color: #FFFFFF;
+    margin: 20px 0px 0px 0px;
+    opacity: 0;
+}
+
+.tipping-pt-text {
+    color: red;
+    font-weight: 900;
 }
 
 .axis text {
@@ -73,7 +107,7 @@ h3 {
     fill: none;
     stroke: white;
     shape-rendering: crispEdges;
-    stroke-width: 0.7px;
+    stroke-width: 0.8px;
 }
 
 .line {
@@ -115,7 +149,7 @@ h3 {
     color: #FFFFFF;
     padding-left: 25px;
     position: relative;
-    top: 400px;
+    top: 390px;
 }
 
 .section-text-full {
@@ -140,7 +174,7 @@ h3 {
     right: 0;
     bottom: 0;
     position: absolute;
-    margin: 0 10px 10px 0;
+    margin: 0 20px 20px 0;
 }
 
 
@@ -361,8 +395,8 @@ h3 {
 
 #timer {
     display: table;
-    margin: 15px auto;
-    margin-right: 15px;
+    margin: 45px auto;
+    margin-right: 40px;
 }
 
 #my-timer {
@@ -382,4 +416,3 @@ h3 {
     color: white;
     display: none;
 }
-
