@@ -173,7 +173,7 @@ d3.csv('data/temperatureData.csv')
     })
 
 
-function transition(path) {
+function mainGraphTransition(path) {
     var totalLength = path.node().getTotalLength();
 
     path.attr("stroke-dasharray", totalLength + " " + totalLength)
@@ -192,7 +192,7 @@ function drawSectionMainGraph(data, line, id) {
         .attr("class", "line")
         .attr("d", line)
         .attr("id", id)
-        .call(transition);
+        .call(mainGraphTransition);
 }
 
 /*********************** FINAL GRAPH ********************* */
@@ -281,6 +281,18 @@ d3.csv('data/stabilisedData.csv')
     })
 
 
+function finalGraphTransition(path) {
+    var totalLength = path.node().getTotalLength();
+
+    path.attr("stroke-dasharray", totalLength + " " + totalLength)
+        .attr("stroke-dashoffset", totalLength)
+        .transition()
+        .duration(4000)
+        .ease(d3.easeLinear)
+        .attr("stroke-dashoffset", 0);
+    // .on("end", finalAnimationCallback);
+}
+
 function drawSectionFinalGraph(data, line, id) {
     finalGraph.append("path")
         .data([data])
@@ -288,7 +300,7 @@ function drawSectionFinalGraph(data, line, id) {
         .attr("d", line)
         .attr("fill", "green")
         .attr("id", id)
-        .call(transition);
+        .call(finalGraphTransition);
 }
 
 
@@ -371,7 +383,8 @@ function removeAllGraphSections() {
     d3.select("#section2").remove();
     d3.select("#section3").remove();
     d3.select("#section4").remove();
-
+    d3.select("#stabilised").remove();
+    d3.select("#tipping-pt").remove();
 }
 
 
@@ -479,6 +492,7 @@ $.scrollify({
             section4Animation();
         } else if (i == 5) {
             $(".scroll").hide();
+            $.scrollify.disable();
             animateFinalGraph();
         }
     },
@@ -516,6 +530,10 @@ function animationCallback() {
     $("#timer").append('<div id="my-timer" class="svg-pie"></div>');
 }
 
+function finalAnimationCallback() {
+    $.scrollify.enable();
+}
+
 function startTimer() {
     $('#my-timer').svgPie({
 
@@ -539,8 +557,10 @@ function startTimer() {
 }
 
 function restartApp() {
+    $.scrollify.enable();
     resetAllAnimations();
     $.scrollify.move("#home");
+    $('.scroll').show();
 }
 
 /*
