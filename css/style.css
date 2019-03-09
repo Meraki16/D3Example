@@ -45,7 +45,7 @@ h2 {
     font-size: 24px;
     text-align: center;
     color: #FFFFFF;
-    margin: 50px 250px 200px 250px;
+    margin: 50px 250px 0px 250px;
 }
 
 .axis text {
@@ -120,6 +120,13 @@ h2 {
 #finalGraph {
     display: table;
     margin: 0 auto;
+}
+
+.restart-btn {
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    margin: 0 10px 10px 0;
 }
 
 

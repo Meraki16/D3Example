@@ -332,7 +332,6 @@ function mainGraphAnimationSection4() {
     drawSectionMainGraph(section, line, "section4");
 };
 
-
 function animateFinalGraph() {
     d3.select("#stabilised").remove();
     drawSectionFinalGraph(stabilisedData, lineFinalGraph, "stabilised");
@@ -354,14 +353,20 @@ function animateFinalGraph() {
 
 }
 
+function removeAllGraphSections() {
+    d3.select("#section1").remove();
+    d3.select("#section2").remove();
+    d3.select("#section3").remove();
+    d3.select("#section4").remove();
+
+}
 
 
 
 
 
 
-
-/*************************************** LAUNCH ANIMATION FUNCTIONS *********************************/
+/*************************************** ANIMATION FUNCTIONS *********************************/
 
 
 function section1Animation() {
@@ -384,6 +389,11 @@ function section4Animation() {
     mainGraphAnimationSection4();
 }
 
+function resetAllAnimations() {
+    removeAllGraphSections();
+    //reset processes
+    //reset connections
+}
 
 
 
@@ -510,6 +520,11 @@ function startTimer() {
         onComplete: function() {}
 
     });
+}
+
+function restartApp() {
+    resetAllAnimations();
+    $.scrollify.move("#home");
 }
 
 /*
