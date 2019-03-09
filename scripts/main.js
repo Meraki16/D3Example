@@ -85,15 +85,16 @@ d3.json("data/GraphData.json").then(function(json) {
             return d.name
         });
     node.append("ellipse")
-        .attr("rx", "60")
-        .attr("ry", "16")
+        .attr("rx", "50")
+        .attr("ry", "14")
         .attr('cx', function(d) {
             return projection([d.x, d.y])[0];
         })
         .attr('cy', function(d) {
             return projection([d.x, d.y])[1];
         })
-        .style("fill-opacity", 0.6)
+        .style("fill-opacity", 1)
+        .style("filter", "blur(10px)");
 });
 
 /*************************************** MAIN GRAPH *********************************************/
@@ -392,6 +393,8 @@ function section4Animation() {
 $.scrollify({
     section: ".panel",
     scrollbars: false,
+    // easing: 'linear',
+    overflowScroll: true,
     before: function(i, panels) {
         var ref = panels[i].attr("data-section-name");
         $(".pagination .active").removeClass("active");
@@ -439,7 +442,7 @@ $.scrollify({
         });
   
         */
-        $(".pagination a").on("click", $.scrollify.move);
+        // $(".pagination a").on("click", $.scrollify.move);
     },
     after: function(i, panels) {
         var section, start_index, end_index;

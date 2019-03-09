@@ -5,7 +5,7 @@
 var loader = new THREE.TextureLoader();
 loader.setCrossOrigin('');
 
-(function () {
+(function() {
 
     var webglEl = document.getElementById('webgl');
 
@@ -14,8 +14,8 @@ loader.setCrossOrigin('');
         return;
     }
 
-    var width = window.innerWidth / 4,
-        height = window.innerHeight / 4;
+    var width = window.innerWidth,
+        height = window.innerHeight;
 
     // Earth params
     var radius = 0.5,
