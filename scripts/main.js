@@ -478,6 +478,7 @@ $.scrollify({
         } else if (i == 4) {
             section4Animation();
         } else if (i == 5) {
+            $(".scroll").hide();
             animateFinalGraph();
         }
     },
@@ -487,6 +488,8 @@ $(".scroll, .scroll-btn").click(function(e) {
     e.preventDefault();
     $.scrollify.next();
 });
+
+
 
 /* when document is loaded and current page is start or end, hide the navigation dots */
 $(document).ready(function() {
@@ -500,14 +503,14 @@ $(document).ready(function() {
 
 function animationStart() {
     $('.pagination').hide();
-    // $('.scroll-section').hide();
+    $('.scroll').hide();
     $.scrollify.disable();
     startTimer();
 }
 
 function animationCallback() {
     $('.pagination').show();
-    // $('.scroll-section').show();
+    $('.scroll').show();
     $.scrollify.enable();
     $("#timer").empty();
     $("#timer").append('<div id="my-timer" class="svg-pie"></div>');
