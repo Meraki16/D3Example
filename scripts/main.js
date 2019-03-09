@@ -23,7 +23,7 @@ svg.append("path")
     .datum(graticule)
     .attr("class", "graticule")
     .attr("d", path);
-d3.json("data/world-110m.json").then(function (world) {
+d3.json("data/world-110m.json").then(function(world) {
     console.log(world);
     svg.insert("path", ".graticule")
         .datum(topojson.feature(world, world.objects.land))
@@ -31,12 +31,12 @@ d3.json("data/world-110m.json").then(function (world) {
         .attr("d", path);
 });
 
-d3.json("data/GraphData.json").then(function (json) {
+d3.json("data/GraphData.json").then(function(json) {
     var nodedata = json.nodes; // store nodes information
     var node = svg.selectAll(".node")
         .data(json.nodes)
         .enter().append("g")
-        .attr("class", function (d) {
+        .attr("class", function(d) {
             if (d.tempStart == 1 && d.tempEnd == 3) {
                 return "group-1"
             } else {
@@ -50,7 +50,7 @@ d3.json("data/GraphData.json").then(function (json) {
     var link = svg.selectAll(".link")
         .data(json.links)
         .enter().append("path")
-        .attr("class", function (d) {
+        .attr("class", function(d) {
             if (nodedata[d.source].tempStart == 1 && nodedata[d.source].tempEnd == 3 && nodedata[d.target].tempStart == 1 && nodedata[d.target].tempEnd == 3) {
                 return "link-group-1"
             } else {
@@ -64,7 +64,7 @@ d3.json("data/GraphData.json").then(function (json) {
         .style("fill", "none")
         .attr("pointer-events", "visibleStroke")
         .style("stroke-width", 3)
-        .attr("d", function (d) {   // position of links depends on this
+        .attr("d", function(d) { // position of links depends on this
             console.log(d);
             var dx = nodedata[d.target].x - nodedata[d.source].x,
                 dy = nodedata[d.target].y - nodedata[d.source].y,
@@ -75,22 +75,22 @@ d3.json("data/GraphData.json").then(function (json) {
     node.append("text")
         .attr("text-anchor", "middle")
         .attr("dy", ".3em")
-        .attr("dx", function (d) {
-            return projection([d.x, d.y])[0];   // for position of text using projection to convert lat & long
+        .attr("dx", function(d) {
+            return projection([d.x, d.y])[0]; // for position of text using projection to convert lat & long
         })
-        .attr("dy", function (d) {
+        .attr("dy", function(d) {
             return projection([d.x, d.y])[1];
         })
-        .text(function (d) {
+        .text(function(d) {
             return d.name
         });
     node.append("ellipse")
         .attr("rx", "60")
         .attr("ry", "16")
-        .attr('cx', function (d) {
+        .attr('cx', function(d) {
             return projection([d.x, d.y])[0];
         })
-        .attr('cy', function (d) {
+        .attr('cy', function(d) {
             return projection([d.x, d.y])[1];
         })
         .style("fill-opacity", 0.6)
@@ -99,11 +99,11 @@ d3.json("data/GraphData.json").then(function (json) {
 /*************************************** MAIN GRAPH *********************************************/
 
 var margin = {
-    top: 60,
-    right: 20,
-    bottom: 30,
-    left: 50
-},
+        top: 60,
+        right: 20,
+        bottom: 30,
+        left: 50
+    },
     width = 400 - margin.left - margin.right,
     height = 365 - margin.top - margin.bottom;
 
@@ -119,10 +119,10 @@ var yAxis = d3.axisLeft(y)
     .tickValues([0, 1, 3, 5]);
 
 var line = d3.line()
-    .x(function (d) {
+    .x(function(d) {
         return x(d.Year);
     })
-    .y(function (d) {
+    .y(function(d) {
         return y(d.Annomaly);
     });
 
@@ -135,10 +135,10 @@ var mainGraph = d3.select("#main-graph").append("svg")
 var allData;
 
 d3.csv('data/temperatureData.csv')
-    .then(function (data) {
+    .then(function(data) {
         console.log(data);
 
-        data.forEach(function (d) {
+        data.forEach(function(d) {
             d.Year = d.Year;
             d.Annomaly = +d.Annomaly;
         });
@@ -167,7 +167,7 @@ d3.csv('data/temperatureData.csv')
             .text("°C");
 
     })
-    .catch(function (error) {
+    .catch(function(error) {
         throw error;
     })
 
@@ -198,11 +198,11 @@ function drawSectionMainGraph(data, line, id) {
 
 
 var marginFinalGraph = {
-    top: 20,
-    right: 20,
-    bottom: 30,
-    left: 50
-},
+        top: 20,
+        right: 20,
+        bottom: 30,
+        left: 50
+    },
     widthFinalGraph = 750 - marginFinalGraph.left - marginFinalGraph.right,
     heightFinalGraph = 400 - marginFinalGraph.top - marginFinalGraph.bottom;
 
@@ -218,10 +218,10 @@ var yAxisFinalGraph = d3.axisLeft(yFinalGraph)
     .tickValues([0, 1, 3, 5]);
 
 var lineFinalGraph = d3.line()
-    .x(function (d) {
+    .x(function(d) {
         return xFinalGraph(d.Year);
     })
-    .y(function (d) {
+    .y(function(d) {
         return yFinalGraph(d.Annomaly);
     });
 
@@ -234,10 +234,10 @@ var finalGraph = d3.select("#finalGraph").append("svg")
 var stabilisedData;
 
 d3.csv('data/stabilisedData.csv')
-    .then(function (data) {
+    .then(function(data) {
         console.log(data);
 
-        data.forEach(function (d) {
+        data.forEach(function(d) {
             d.Year = d.Year;
             d.Annomaly = +d.Annomaly;
         });
@@ -275,7 +275,7 @@ d3.csv('data/stabilisedData.csv')
         //     .attr("d", lineFinalGraph)
 
     })
-    .catch(function (error) {
+    .catch(function(error) {
         throw error;
     })
 
@@ -340,13 +340,13 @@ function animateFinalGraph() {
         .attr("class", "tipping-point")
         .attr("cx", function(d) { return xFinalGraph(2024) })
         .attr("cy", function(d) { return yFinalGraph(1.21) })
-        .attr("r", 20)
+        .attr("r", 15)
         .attr("fill", "none")
         .attr("stroke", "red")
         .attr("stroke-width", "2.5px")
-    attr("stroke-opacity", 0)
+        .attr("stroke-opacity", 0)
         .transition()
-        .duration(4000)
+        .duration(2000)
         .ease(d3.easeLinear)
         .style("stroke-opacity", 1);
     // .on("end", animationCallback);
@@ -392,7 +392,7 @@ function section4Animation() {
 $.scrollify({
     section: ".panel",
     scrollbars: false,
-    before: function (i, panels) {
+    before: function(i, panels) {
         var ref = panels[i].attr("data-section-name");
         $(".pagination .active").removeClass("active");
         $(".pagination").find("a[href=\"#" + ref + "\"]").addClass("active");
@@ -407,10 +407,10 @@ $.scrollify({
             $(".pagination").css({ "visibility": "visible" });
         }
     },
-    afterRender: function () {
+    afterRender: function() {
         var pagination = "<ul class=\"pagination\">";
         var activeClass = "";
-        $(".panel").each(function (i) {
+        $(".panel").each(function(i) {
             activeClass = "";
             if (i === 0) {
                 activeClass = "active";
@@ -441,7 +441,7 @@ $.scrollify({
         */
         $(".pagination a").on("click", $.scrollify.move);
     },
-    after: function (i, panels) {
+    after: function(i, panels) {
         var section, start_index, end_index;
         if (i == 1) {
             section1Animation();
@@ -457,13 +457,13 @@ $.scrollify({
     },
 });
 
-$(".scroll, .scroll-btn").click(function (e) {
+$(".scroll, .scroll-btn").click(function(e) {
     e.preventDefault();
     $.scrollify.next();
 });
 
 /* when document is loaded and current page is start or end, hide the navigation dots */
-$(document).ready(function () {
+$(document).ready(function() {
     var curSection = $.scrollify.current();
     var curSecName = $($(curSection).get(0)).attr("data-section-name")
 
@@ -503,8 +503,8 @@ function startTimer() {
         duration: 4000,
 
         // callbacks
-        onStart: function () { },
-        onComplete: function () { }
+        onStart: function() {},
+        onComplete: function() {}
 
     });
 }
