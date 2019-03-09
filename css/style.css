@@ -122,12 +122,6 @@ h2 {
     margin: 0 auto;
 }
 
-.globe {
-    overflow: hidden;
-    position: absolute;
-    height: 84%;
-}
-
 
 /************************** style for pagination/dot navigation ***************************/
 
@@ -209,6 +203,7 @@ h2 {
     left: 0;
     -webkit-animation: 3s arrow infinite ease;
     animation: 3s arrow infinite ease;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
 }
 
 .scroll:after {
