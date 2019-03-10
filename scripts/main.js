@@ -250,6 +250,10 @@ function mainGraphAnimationSection1() {
     d3.select("#section1").remove();
     drawSectionMainGraph(section, line, "section1");
 
+    // reset world map
+    $(".land").css("opacity", 0);
+    $("#map").css("opacity", 0);
+
     // fade in world map
     $(".land").animate({
         opacity: 1,
@@ -270,6 +274,10 @@ function mainGraphAnimationSection2() {
     d3.select("#section3").remove();
     d3.select("#section2").remove();
     drawSectionMainGraph(section, line, "section2");
+
+    // make sure that world map is visible
+    $(".land").css("opacity", 1);
+    $("#map").css("opacity", 1);
 };
 
 function mainGraphAnimationSection3() {
@@ -279,6 +287,10 @@ function mainGraphAnimationSection3() {
     d3.select("#section4").remove();
     d3.select("#section3").remove();
     drawSectionMainGraph(section, line, "section3");
+
+    // make sure that world map is visible
+    $(".land").css("opacity", 1);
+    $("#map").css("opacity", 1);
 };
 
 function mainGraphAnimationSection4() {
