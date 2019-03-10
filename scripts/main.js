@@ -23,7 +23,7 @@ svg.append("path")
     .datum(graticule)
     .attr("class", "graticule")
     .attr("d", path);
-d3.json("data/world-110m.json").then(function(world) {
+d3.json("data/world-110m.json").then(function (world) {
     console.log(world);
     svg.insert("path", ".graticule")
         .datum(topojson.feature(world, world.objects.land))
@@ -34,11 +34,11 @@ d3.json("data/world-110m.json").then(function(world) {
 /*************************************** MAIN GRAPH *********************************************/
 
 var margin = {
-        top: 60,
-        right: 20,
-        bottom: 30,
-        left: 50
-    },
+    top: 60,
+    right: 20,
+    bottom: 30,
+    left: 50
+},
     width = 400 - margin.left - margin.right,
     height = 365 - margin.top - margin.bottom;
 
@@ -54,10 +54,10 @@ var yAxis = d3.axisLeft(y)
     .tickValues([0, 1, 3, 5]);
 
 var line = d3.line()
-    .x(function(d) {
+    .x(function (d) {
         return x(d.Year);
     })
-    .y(function(d) {
+    .y(function (d) {
         return y(d.Annomaly);
     });
 
@@ -70,10 +70,10 @@ var mainGraph = d3.select("#main-graph").append("svg")
 var allData;
 
 d3.csv('data/temperatureData.csv')
-    .then(function(data) {
+    .then(function (data) {
         console.log(data);
 
-        data.forEach(function(d) {
+        data.forEach(function (d) {
             d.Year = d.Year;
             d.Annomaly = +d.Annomaly;
         });
@@ -102,7 +102,7 @@ d3.csv('data/temperatureData.csv')
             .text("°C");
 
     })
-    .catch(function(error) {
+    .catch(function (error) {
         throw error;
     })
 
@@ -133,11 +133,11 @@ function drawSectionMainGraph(data, line, id) {
 
 
 var marginFinalGraph = {
-        top: 20,
-        right: 20,
-        bottom: 30,
-        left: 50
-    },
+    top: 20,
+    right: 20,
+    bottom: 30,
+    left: 50
+},
     widthFinalGraph = 750 - marginFinalGraph.left - marginFinalGraph.right,
     heightFinalGraph = 360 - marginFinalGraph.top - marginFinalGraph.bottom;
 
@@ -153,10 +153,10 @@ var yAxisFinalGraph = d3.axisLeft(yFinalGraph)
     .tickValues([0, 1, 3, 5]);
 
 var lineFinalGraph = d3.line()
-    .x(function(d) {
+    .x(function (d) {
         return xFinalGraph(d.Year);
     })
-    .y(function(d) {
+    .y(function (d) {
         return yFinalGraph(d.Annomaly);
     });
 
@@ -169,10 +169,10 @@ var finalGraph = d3.select("#finalGraph").append("svg")
 var stabilisedData;
 
 d3.csv('data/stabilisedData.csv')
-    .then(function(data) {
+    .then(function (data) {
         console.log(data);
 
-        data.forEach(function(d) {
+        data.forEach(function (d) {
             d.Year = d.Year;
             d.Annomaly = +d.Annomaly;
         });
@@ -210,7 +210,7 @@ d3.csv('data/stabilisedData.csv')
         //     .attr("d", lineFinalGraph)
 
     })
-    .catch(function(error) {
+    .catch(function (error) {
         throw error;
     })
 
@@ -243,6 +243,7 @@ function drawSectionFinalGraph(data, line, id) {
 var nodedata = []; // store nodes information
 var jsonlinks = [];
 
+
 function mainGraphAnimationSection1() {
     var start_index = 0;
     var end_index = 145;
@@ -261,8 +262,76 @@ function mainGraphAnimationSection2() {
     var start_index = 144;
     var end_index = 200;
     var section = allData.slice(start_index, end_index);
-
     //code for map
+    DrawMapSection2();
+    d3.select("#section3").remove();
+    d3.select("#section2").remove();
+    drawSectionMainGraph(section, line, "section2");
+};
+
+function mainGraphAnimationSection3() {
+    var start_index = 199;
+    var end_index = 234;
+    var section = allData.slice(start_index, end_index);
+    DrawMapSection3();
+    d3.select("#section4").remove();
+    d3.select("#section3").remove();
+    drawSectionMainGraph(section, line, "section3");
+};
+
+function mainGraphAnimationSection4() {
+    var start_index = 233;
+    var end_index = 272;
+    var section = allData.slice(start_index, end_index);
+    DrawMapSection4();
+    d3.select("#section4").remove();
+    drawSectionMainGraph(section, line, "section4");
+};
+
+function animateFinalGraph() {
+    d3.select("#stabilised").remove();
+    d3.select("#tipping-pt").remove();
+    drawSectionFinalGraph(stabilisedData, lineFinalGraph, "stabilised");
+
+    finalGraph.append("circle")
+        .attr("id", "tipping-pt")
+        .attr("class", "tipping-point")
+        .attr("cx", function (d) { return xFinalGraph(2024) })
+        .attr("cy", function (d) { return yFinalGraph(1.21) })
+        .attr("r", 15)
+        .attr("fill", "none")
+        .attr("stroke", "red")
+        .attr("stroke-width", "2.5px")
+        .attr("stroke-opacity", 0)
+        .transition()
+        .duration(2000)
+        .ease(d3.easeLinear)
+        .style("stroke-opacity", 1);
+    // .on("end", animationCallback);
+
+    $(".conclusion-text-1").animate({
+        opacity: 1,
+    }, 2000, function () {
+        // Animation complete.
+    });
+
+    $(".conclusion-text-2").delay(2500).animate({
+        opacity: 1,
+    }, 4000, function () {
+        // Animation complete.
+    });
+}
+
+function removeAllGraphSections() {
+    d3.select("#section1").remove();
+    d3.select("#section2").remove();
+    d3.select("#section3").remove();
+    d3.select("#section4").remove();
+    d3.select("#stabilised").remove();
+    d3.select("#tipping-pt").remove();
+}
+
+function DrawMapSection2() {
     if (d3.selectAll(".group-2")._groups[0].length > 0) {
         d3.selectAll(".group-2").remove();
         nodedata.forEach(function (d, i) {
@@ -300,6 +369,7 @@ function mainGraphAnimationSection2() {
                 }
             }
         });
+
         var node = svg.selectAll(".node")
             .data(nodedata)
             .enter().append("g")
@@ -314,30 +384,18 @@ function mainGraphAnimationSection2() {
                     }
                 }
             })
-        node.append("path")
-            .data(jsonlinks)
-            .attr("class", "link-group-1")
-            .style("fill", "none")
-            .attr("pointer-events", "visibleStroke")
-            .style("stroke-width", 3)
-            .attr("d", function (d) {   // position of links depends on this
-                //console.log(d);
-                var dx = nodedata[d.target].x - nodedata[d.source].x,
-                    dy = nodedata[d.target].y - nodedata[d.source].y,
-                    dr = Math.sqrt(dx * dx + dy * dy);
-
-                return "M" + projection([nodedata[d.source].x, nodedata[d.source].y])[0] + "," + projection([nodedata[d.source].x, nodedata[d.source].y])[1] + "A" + dr + "," + dr + " 0 0,1 " + projection([nodedata[d.target].x, nodedata[d.target].y])[0] + "," + projection([nodedata[d.target].x, nodedata[d.target].y])[1];
-            });
-
         node.append("ellipse")
-            .attr("rx", "60")
-            .attr("ry", "16")
             .attr('cx', function (d) {
                 return projection([d.x, d.y])[0];
             })
             .attr('cy', function (d) {
                 return projection([d.x, d.y])[1];
             })
+            .transition()
+            .duration(4000)
+            .ease(d3.easeLinear)
+            .attr("rx", 80)
+            .attr("ry", 16)
             .style("fill-opacity", 0.6)
 
         node.append("text")
@@ -352,19 +410,35 @@ function mainGraphAnimationSection2() {
             .text(function (d) {
                 return d.name
             });
+
+        var path = node.append("path")
+            .data(jsonlinks)
+            .attr("class", "link-group-1")
+            .style("fill", "none")
+            //.attr("pointer-events", "visibleStroke")
+            .style("stroke-width", 0)
+
+            .attr("d", function (d) {   // position of links depends on this
+                //console.log(d);
+                var dx = nodedata[d.target].x - nodedata[d.source].x,
+                    dy = nodedata[d.target].y - nodedata[d.source].y,
+                    dr = Math.sqrt(dx * dx + dy * dy);
+
+                return "M" + projection([nodedata[d.source].x, nodedata[d.source].y])[0] + "," + projection([nodedata[d.source].x, nodedata[d.source].y])[1] + "A" + dr + "," + dr + " 0 0,1 " + projection([nodedata[d.target].x, nodedata[d.target].y])[0] + "," + projection([nodedata[d.target].x, nodedata[d.target].y])[1];
+            });
+        var totalLength = path.node().getTotalLength();
+        path
+            .attr("stroke-dasharray", totalLength + " " + totalLength)
+            .attr("stroke-dashoffset", totalLength)
+            .transition()
+            .duration(4000)
+            .ease(d3.easeLinear)
+            .attr("stroke-dashoffset", 0)
+            .style("stroke-width", 4);
     });
+}
 
-    d3.select("#section3").remove();
-    d3.select("#section2").remove();
-    drawSectionMainGraph(section, line, "section2");
-};
-
-function mainGraphAnimationSection3() {
-    var start_index = 199;
-    var end_index = 234;
-    var section = allData.slice(start_index, end_index);
-
-
+function DrawMapSection3() {
     // code for map
     if (d3.selectAll(".group-3")._groups[0].length > 0) {
         d3.selectAll(".group-3").remove();
@@ -417,30 +491,18 @@ function mainGraphAnimationSection3() {
                     }
                 }
             })
-        node.append("path")
-            .data(jsonlinks)
-            .attr("class", "link-group-2")
-            .style("fill", "none")
-            .attr("pointer-events", "visibleStroke")
-            .style("stroke-width", 3)
-            .attr("d", function (d) {   // position of links depends on this
-                //console.log(d);
-                var dx = nodedata[d.target].x - nodedata[d.source].x,
-                    dy = nodedata[d.target].y - nodedata[d.source].y,
-                    dr = Math.sqrt(dx * dx + dy * dy);
-
-                return "M" + projection([nodedata[d.source].x, nodedata[d.source].y])[0] + "," + projection([nodedata[d.source].x, nodedata[d.source].y])[1] + "A" + dr + "," + dr + " 0 0,1 " + projection([nodedata[d.target].x, nodedata[d.target].y])[0] + "," + projection([nodedata[d.target].x, nodedata[d.target].y])[1];
-            });
-
         node.append("ellipse")
-            .attr("rx", "60")
-            .attr("ry", "16")
             .attr('cx', function (d) {
                 return projection([d.x, d.y])[0];
             })
             .attr('cy', function (d) {
                 return projection([d.x, d.y])[1];
             })
+            .transition()
+            .duration(4000)
+            .ease(d3.easeLinear)
+            .attr("rx", 80)
+            .attr("ry", 16)
             .style("fill-opacity", 0.6)
 
         node.append("text")
@@ -455,17 +517,34 @@ function mainGraphAnimationSection3() {
             .text(function (d) {
                 return d.name
             });
+        var path = node.append("path")
+            .data(jsonlinks)
+            .attr("class", "link-group-2")
+            .style("fill", "none")
+            //.attr("pointer-events", "visibleStroke")
+            .style("stroke-width", 0)
+            .attr("d", function (d) {   // position of links depends on this
+                //console.log(d);
+                var dx = nodedata[d.target].x - nodedata[d.source].x,
+                    dy = nodedata[d.target].y - nodedata[d.source].y,
+                    dr = Math.sqrt(dx * dx + dy * dy);
+
+                return "M" + projection([nodedata[d.source].x, nodedata[d.source].y])[0] + "," + projection([nodedata[d.source].x, nodedata[d.source].y])[1] + "A" + dr + "," + dr + " 0 0,1 " + projection([nodedata[d.target].x, nodedata[d.target].y])[0] + "," + projection([nodedata[d.target].x, nodedata[d.target].y])[1];
+            });
+        var totalLength = path.node().getTotalLength();
+        path
+            .attr("stroke-dasharray", totalLength + " " + totalLength)
+            .attr("stroke-dashoffset", totalLength)
+            .transition()
+            .duration(4000)
+            .ease(d3.easeLinear)
+            .attr("stroke-dashoffset", 0)
+            .style("stroke-width", 4);
     });
+}
 
-    d3.select("#section4").remove();
-    d3.select("#section3").remove();
-    drawSectionMainGraph(section, line, "section3");
-};
+function DrawMapSection4() {
 
-function mainGraphAnimationSection4() {
-    var start_index = 233;
-    var end_index = 272;
-    var section = allData.slice(start_index, end_index);
     // code for map
     d3.json("data/GraphData.json").then(function (json) {
         json.nodes.forEach(function (d, i) {
@@ -492,31 +571,21 @@ function mainGraphAnimationSection4() {
                     }
                 }
             })
-        node.append("path")
-            .data(jsonlinks)
-            .attr("class", "link-group-2")
-            .style("fill", "none")
-            .attr("pointer-events", "visibleStroke")
-            .style("stroke-width", 3)
-            .attr("d", function (d) {   // position of links depends on this
-                //console.log(d);
-                var dx = nodedata[d.target].x - nodedata[d.source].x,
-                    dy = nodedata[d.target].y - nodedata[d.source].y,
-                    dr = Math.sqrt(dx * dx + dy * dy);
-
-                return "M" + projection([nodedata[d.source].x, nodedata[d.source].y])[0] + "," + projection([nodedata[d.source].x, nodedata[d.source].y])[1] + "A" + dr + "," + dr + " 0 0,1 " + projection([nodedata[d.target].x, nodedata[d.target].y])[0] + "," + projection([nodedata[d.target].x, nodedata[d.target].y])[1];
-            });
 
         node.append("ellipse")
-            .attr("rx", "60")
-            .attr("ry", "16")
             .attr('cx', function (d) {
                 return projection([d.x, d.y])[0];
             })
             .attr('cy', function (d) {
                 return projection([d.x, d.y])[1];
             })
+            .transition()
+            .duration(4000)
+            .ease(d3.easeLinear)
+            .attr("rx", 80)
+            .attr("ry", 16)
             .style("fill-opacity", 0.6)
+
         node.append("text")
             .attr("text-anchor", "middle")
             .attr("dy", ".3em")
@@ -529,57 +598,31 @@ function mainGraphAnimationSection4() {
             .text(function (d) {
                 return d.name
             });
-    });
-    d3.select("#section4").remove();
-    drawSectionMainGraph(section, line, "section4");
-};
+        var path = node.append("path")
+            .data(jsonlinks)
+            .attr("class", "link-group-3")
+            .style("fill", "none")
+            //.attr("pointer-events", "visibleStroke")
+            .style("stroke-width", 0)
+            .attr("d", function (d) {   // position of links depends on this
+                //console.log(d);
+                var dx = nodedata[d.target].x - nodedata[d.source].x,
+                    dy = nodedata[d.target].y - nodedata[d.source].y,
+                    dr = Math.sqrt(dx * dx + dy * dy);
 
-function animateFinalGraph() {
-    d3.select("#stabilised").remove();
-    d3.select("#tipping-pt").remove();
-    drawSectionFinalGraph(stabilisedData, lineFinalGraph, "stabilised");
-
-    finalGraph.append("circle")
-        .attr("id", "tipping-pt")
-        .attr("class", "tipping-point")
-        .attr("cx", function(d) { return xFinalGraph(2024) })
-        .attr("cy", function(d) { return yFinalGraph(1.21) })
-        .attr("r", 15)
-        .attr("fill", "none")
-        .attr("stroke", "red")
-        .attr("stroke-width", "2.5px")
-        .attr("stroke-opacity", 0)
-        .transition()
-        .duration(2000)
-        .ease(d3.easeLinear)
-        .style("stroke-opacity", 1);
-    // .on("end", animationCallback);
-
-    $(".conclusion-text-1").animate({
-        opacity: 1,
-    }, 2000, function() {
-        // Animation complete.
-    });
-
-    $(".conclusion-text-2").delay(2500).animate({
-        opacity: 1,
-    }, 4000, function() {
-        // Animation complete.
+                return "M" + projection([nodedata[d.source].x, nodedata[d.source].y])[0] + "," + projection([nodedata[d.source].x, nodedata[d.source].y])[1] + "A" + dr + "," + dr + " 0 0,1 " + projection([nodedata[d.target].x, nodedata[d.target].y])[0] + "," + projection([nodedata[d.target].x, nodedata[d.target].y])[1];
+            });
+        var totalLength = path.node().getTotalLength();
+        path
+            .attr("stroke-dasharray", totalLength + " " + totalLength)
+            .attr("stroke-dashoffset", totalLength)
+            .transition()
+            .duration(6000)
+            .ease(d3.easeLinear)
+            .attr("stroke-dashoffset", 0)
+            .style("stroke-width", 4);;
     });
 }
-
-function removeAllGraphSections() {
-    d3.select("#section1").remove();
-    d3.select("#section2").remove();
-    d3.select("#section3").remove();
-    d3.select("#section4").remove();
-    d3.select("#stabilised").remove();
-    d3.select("#tipping-pt").remove();
-}
-
-
-
-
 
 
 /*************************************** ANIMATION FUNCTIONS *********************************/
@@ -621,7 +664,7 @@ $.scrollify({
     scrollbars: false,
     // easing: 'linear',
     // overflowScroll: true,
-    before: function(i, panels) {
+    before: function (i, panels) {
         var ref = panels[i].attr("data-section-name");
         $(".pagination .active").removeClass("active");
         $(".pagination").find("a[href=\"#" + ref + "\"]").addClass("active");
@@ -636,10 +679,10 @@ $.scrollify({
             $(".pagination").css({ "visibility": "visible" });
         }
     },
-    afterRender: function() {
+    afterRender: function () {
         var pagination = "<ul class=\"pagination\">";
         var activeClass = "";
-        $(".panel").each(function(i) {
+        $(".panel").each(function (i) {
             activeClass = "";
             if (i === 0) {
                 activeClass = "active";
@@ -670,7 +713,7 @@ $.scrollify({
         */
         // $(".pagination a").on("click", $.scrollify.move);
     },
-    after: function(i, panels) {
+    after: function (i, panels) {
         var section, start_index, end_index;
         if (i == 1) {
             section1Animation();
@@ -688,7 +731,7 @@ $.scrollify({
     },
 });
 
-$(".scroll, .scroll-btn").click(function(e) {
+$(".scroll, .scroll-btn").click(function (e) {
     e.preventDefault();
     $.scrollify.next();
 });
@@ -696,7 +739,7 @@ $(".scroll, .scroll-btn").click(function(e) {
 
 
 /* when document is loaded and current page is start or end, hide the navigation dots */
-$(document).ready(function() {
+$(document).ready(function () {
     var curSection = $.scrollify.current();
     var curSecName = $($(curSection).get(0)).attr("data-section-name")
 
@@ -740,8 +783,8 @@ function startTimer() {
         duration: 4000,
 
         // callbacks
-        onStart: function() {},
-        onComplete: function() {}
+        onStart: function () { },
+        onComplete: function () { }
 
     });
 }
