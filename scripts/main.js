@@ -412,6 +412,10 @@ function mainGraphAnimationSection4() {
     var section = allData.slice(start_index, end_index);
     d3.select("#section4").remove();
     drawSectionMainGraph(section, line, "section4");
+
+    // make sure that world map is visible
+    $(".land").css("opacity", 1);
+    $("#map").css("opacity", 1);
 };
 
 function animateFinalGraph() {
@@ -533,7 +537,7 @@ function DrawMapSection2() {
             .attr("rx", 70)
             .attr("ry", 30)
             .style("fill-opacity", 0.6)
-            .style("filter", "blur(3px)");
+            .style("filter", "blur(5px)");
 
         node.append('foreignObject')
             .attr('x', function(d) {
@@ -680,7 +684,7 @@ function DrawMapSection3() {
             .attr("rx", 70)
             .attr("ry", 30)
             .style("fill-opacity", 0.6)
-            .style("filter", "blur(3px)");
+            .style("filter", "blur(5px)");
 
         node.append('foreignObject')
             .attr('x', function(d) {
@@ -845,7 +849,7 @@ function DrawMapSection4() {
             .attr("rx", 70)
             .attr("ry", 30)
             .style("fill-opacity", 0.6)
-            .style("filter", "blur(3px)");
+            .style("filter", "blur(5px)");
 
         node.append('foreignObject')
             .attr('x', function(d) {
