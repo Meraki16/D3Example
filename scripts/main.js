@@ -230,9 +230,8 @@ function finalGraphTransition(path) {
 function drawSectionFinalGraph(data, line, id) {
     finalGraph.append("path")
         .data([data])
-        .attr("class", "line")
+        .attr("class", "stabilized-line")  
         .attr("d", line)
-        .attr("fill", "green")
         .attr("id", id)
         .call(finalGraphTransition);
 }
@@ -646,6 +645,15 @@ function section4Animation() {
 
 function resetAllAnimations() {
     removeAllGraphSections();
+
+    // reset conclusion texts 
+    $(".conclusion-text-1").css("opacity", 0);
+    $(".conclusion-text-2").animate({
+        opacity: 0,
+    }, 4000, function () {
+        // Animation complete.
+    });
+
     //reset processes
     //reset connections
 }
@@ -783,10 +791,14 @@ function startTimer() {
 }
 
 function restartApp() {
+
+
     $.scrollify.enable();
     resetAllAnimations();
     $.scrollify.move("#home");
     $('.scroll').show();
+
+  
 }
 
 /*

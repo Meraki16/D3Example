@@ -116,6 +116,12 @@ h4 {
     stroke-width: 1.5px;
 }
 
+.stabilized-line {
+    fill: none;
+    stroke: green;
+    stroke-width: 1.5px;
+}
+
 #intro-section {
     z-index: 999;
     background-color: black;
