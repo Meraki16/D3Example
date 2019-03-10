@@ -534,10 +534,10 @@ function DrawMapSection2() {
             .transition()
             .duration(4000)
             .ease(d3.easeLinear)
-            .attr("rx", 70)
-            .attr("ry", 30)
-            .style("fill-opacity", 0.6)
-            .style("filter", "blur(5px)");
+            .attr("rx", 75)
+            .attr("ry", 35)
+            .style("fill-opacity", 0.5)
+            .style("filter", "blur(7px)");
 
         node.append('foreignObject')
             .attr('x', function(d) {
@@ -550,7 +550,11 @@ function DrawMapSection2() {
             .attr('height', 50)
             .html(function(d) {
                 return d.name
-            });
+            })
+            .transition()
+            .duration(2000)
+            .ease(d3.easeLinear)
+            .attr("opacity", 1);
 
         // node.append("text")
         //     .attr("text-anchor", "middle")
@@ -681,10 +685,10 @@ function DrawMapSection3() {
             .transition()
             .duration(4000)
             .ease(d3.easeLinear)
-            .attr("rx", 70)
-            .attr("ry", 30)
-            .style("fill-opacity", 0.6)
-            .style("filter", "blur(5px)");
+            .attr("rx", 75)
+            .attr("ry", 35)
+            .style("fill-opacity", 0.5)
+            .style("filter", "blur(7px)");
 
         node.append('foreignObject')
             .attr('x', function(d) {
@@ -697,7 +701,10 @@ function DrawMapSection3() {
             .attr('height', 50)
             .html(function(d) {
                 return d.name
-            });
+            }).transition()
+            .duration(2000)
+            .ease(d3.easeLinear)
+            .attr("opacity", 1);
 
         // node.append("text")
         //     .attr("text-anchor", "middle")
@@ -846,10 +853,10 @@ function DrawMapSection4() {
             .transition()
             .duration(4000)
             .ease(d3.easeLinear)
-            .attr("rx", 70)
-            .attr("ry", 30)
-            .style("fill-opacity", 0.6)
-            .style("filter", "blur(5px)");
+            .attr("rx", 75)
+            .attr("ry", 35)
+            .style("fill-opacity", 0.5)
+            .style("filter", "blur(7px)");
 
         node.append('foreignObject')
             .attr('x', function(d) {
@@ -862,7 +869,10 @@ function DrawMapSection4() {
             .attr('height', 50)
             .html(function(d) {
                 return d.name
-            })
+            }).transition()
+            .duration(2000)
+            .ease(d3.easeLinear)
+            .attr("opacity", 1);
 
         // node.append("text")
         //     .attr("text-anchor", "middle")
@@ -879,18 +889,35 @@ function DrawMapSection4() {
 
         var defs = svg.append("defs");
 
-        var gradientRedVertical = defs.append("linearGradient")
+        var gradientYellowRedVertical = defs.append("linearGradient")
             .attr("id", "yellowRedVerticalGradient")
             .attr("x1", "0%")
             .attr("x2", "0%")
             .attr("y1", "0%")
             .attr("y2", "100%");
-        gradientRedVertical.append("stop")
+        gradientYellowRedVertical.append("stop")
             .attr('class', 'start')
             .attr("offset", "0%")
             .attr("stop-color", "yellow")
             .attr("stop-opacity", 1);
-        gradientRedVertical.append("stop")
+        gradientYellowRedVertical.append("stop")
+            .attr('class', 'end')
+            .attr("offset", "100%")
+            .attr("stop-color", "red")
+            .attr("stop-opacity", 1);
+
+        var gradientOrangeRedVertical = defs.append("linearGradient")
+            .attr("id", "orangeRedVerticalGradient")
+            .attr("x1", "0%")
+            .attr("x2", "0%")
+            .attr("y1", "0%")
+            .attr("y2", "100%");
+        gradientOrangeRedVertical.append("stop")
+            .attr('class', 'start')
+            .attr("offset", "0%")
+            .attr("stop-color", "orange")
+            .attr("stop-opacity", 1);
+        gradientOrangeRedVertical.append("stop")
             .attr('class', 'end')
             .attr("offset", "100%")
             .attr("stop-color", "red")
@@ -902,7 +929,13 @@ function DrawMapSection4() {
             .style("fill", "none")
             //.attr("pointer-events", "visibleStroke")
             .style("stroke-width", 0)
-            .attr("stroke", "url(#yellowRedVerticalGradient)")
+            .attr("stroke", function(d) {
+                if ((d.source == 0 && d.target == 14)) {
+                    return "url(#yellowRedVerticalGradient)"
+                } else if ((d.source == 8 && d.target == 14)) {
+                    return "url(#orangeRedVerticalGradient)"
+                }
+            })
             .attr("d", function(d) { // position of links depends on this
                 //console.log(d);
                 var dx = nodedata[d.target].x - nodedata[d.source].x,
