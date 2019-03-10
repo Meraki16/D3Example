@@ -285,7 +285,7 @@ h4 {
 }
 
 .fill {
-    fill: #fff;
+    fill: black;
 }
 
 .graticule {
@@ -296,7 +296,7 @@ h4 {
 }
 
 .land {
-    fill: #222;
+    fill: #d8d8d8;
 }
 
 .boundary {
@@ -317,19 +317,6 @@ h4 {
     padding-left: 37px;
     margin-bottom: -30px;
     margin-top: -10px;
-}
-
-.temperatureContainer {
-    color: black;
-    font-size: 18px;
-    position: absolute;
-    z-index: -1;
-    float: left;
-    margin-left: 50px;
-    margin-top: 50px;
-    box-shadow: 3px 3px 5px 3px rgba(219, 219, 219, 1);
-    padding: 10px;
-    border-radius: 5px;
 }
 
 #timeline-1 {

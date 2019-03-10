@@ -451,7 +451,7 @@ function DrawMapSection2() {
             .duration(4000)
             .ease(d3.easeLinear)
             .attr("stroke-dashoffset", 0)
-            .style("stroke-width", 4);
+            .style("stroke-width", 2);
     });
 
 
@@ -544,6 +544,8 @@ function DrawMapSection3() {
             .text(function(d) {
                 return d.name
             });
+        // .style("word-wrap", "break-word");
+        // .attr("width", "50px");
 
         var path = node.append("path")
             .data(currdata)
@@ -568,7 +570,7 @@ function DrawMapSection3() {
             .duration(4000)
             .ease(d3.easeLinear)
             .attr("stroke-dashoffset", 0)
-            .style("stroke-width", 4);
+            .style("stroke-width", 2);
     });
 }
 
@@ -650,10 +652,10 @@ function DrawMapSection4() {
         path.attr("stroke-dasharray", totalLength + " " + totalLength)
             .attr("stroke-dashoffset", totalLength)
             .transition()
-            .duration(6000)
+            .duration(4000)
             .ease(d3.easeLinear)
             .attr("stroke-dashoffset", 0)
-            .style("stroke-width", 4);;
+            .style("stroke-width", 2);;
     });
 }
 
