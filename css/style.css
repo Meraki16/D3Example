@@ -64,7 +64,7 @@ h4 {
     font-size: 20px;
     text-align: center;
     color: #FFFFFF;
-    margin: 0px 250px 0px 250px;
+    margin: 0px 310px 0px 310px;
 }
 
 .conclusion-text-1 {
@@ -92,7 +92,7 @@ h4 {
 }
 
 .tipping-pt-text {
-    color: red;
+    color: white;
     font-weight: 900;
 }
 
@@ -112,14 +112,14 @@ h4 {
 
 .line {
     fill: none;
-    stroke: white;
+    /* stroke: white; */
     stroke-width: 1.5px;
 }
 
 .stabilized-line {
     fill: none;
-    stroke: green;
-    stroke-width: 1.5px;
+    stroke: #008700;
+    stroke-width: 2px;
 }
 
 #intro-section {
@@ -203,6 +203,7 @@ h4 {
     color: white;
     position: relative;
     padding: 4px;
+    cursor: default;
 }
 
 .pagination a.active:after {
@@ -377,6 +378,11 @@ h4 {
 .node text {
     stroke: #333;
     cursor: pointer;
+}
+
+foreignObject {
+    text-align: center;
+    font-weight: 500;
 }
 
 

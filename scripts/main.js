@@ -68,6 +68,7 @@ var mainGraph = d3.select("#main-graph").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var allData;
+var stabilisedData;
 
 d3.csv('data/temperatureData.csv')
     .then(function(data) {
@@ -101,6 +102,82 @@ d3.csv('data/temperatureData.csv')
             .style("text-anchor", "end")
             .text("°C");
 
+        d3.csv('data/stabilisedData.csv')
+            .then(function(data) {
+                console.log(data);
+
+                data.forEach(function(d) {
+                    d.Year = d.Year;
+                    d.Annomaly = +d.Annomaly;
+                });
+
+                stabilisedData = data;
+
+                // creates fixed values on the axis
+                xFinalGraph.domain([1880, 2150]).nice();
+                yFinalGraph.domain([0, 9]).nice();
+
+                finalGraph.append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + heightFinalGraph + ")")
+                    .call(xAxisFinalGraph);
+
+                finalGraph.append("g")
+                    .attr("class", "y axis")
+                    .call(yAxisFinalGraph)
+                    .append("text")
+                    // .attr("transform", "rotate(-90)")
+                    // .attr("y", 10)
+                    .attr("dy", "1em")
+                    .attr("dx", "-0.5em")
+                    .style("text-anchor", "end")
+                    .text("°C");
+
+                var defs = svg.append("defs");
+                var finalGradient = defs.append("linearGradient")
+                    .attr("id", "finalGradient")
+                    .attr("x1", "0%")
+                    .attr("x2", "100%")
+                    .attr("y1", "0%")
+                    .attr("y2", "0%");
+                finalGradient.append("stop")
+                    .attr('class', 'stop1')
+                    .attr("offset", "0%")
+                    .attr("stop-color", "white")
+                    .attr("stop-opacity", 1);
+                finalGradient.append("stop")
+                    .attr('class', 'stop2')
+                    .attr("offset", "40%")
+                    .attr("stop-color", "yellow")
+                    .attr("stop-opacity", 1);
+                finalGradient.append("stop")
+                    .attr('class', 'stop3')
+                    .attr("offset", "65%")
+                    .attr("stop-color", "orange")
+                    .attr("stop-opacity", 1);
+                finalGradient.append("stop")
+                    .attr('class', 'stop4')
+                    .attr("offset", "80%")
+                    .attr("stop-color", "red")
+                    .attr("stop-opacity", 1);
+                finalGradient.append("stop")
+                    .attr('class', 'stop5')
+                    .attr("offset", "100%")
+                    .attr("stop-color", "black")
+                    .attr("stop-opacity", 1);
+
+                finalGraph.append("path")
+                    .data([allData])
+                    .attr("class", "line")
+                    .attr("d", lineFinalGraph)
+                    .attr("stroke", "url(#finalGradient)");
+
+            })
+            .catch(function(error) {
+                throw error;
+            })
+
+
     })
     .catch(function(error) {
         throw error;
@@ -121,11 +198,93 @@ function mainGraphTransition(path) {
 
 
 function drawSectionMainGraph(data, line, id) {
+    var defs = svg.append("defs");
+
+    var gradient1 = defs.append("linearGradient")
+        .attr("id", "gradient1")
+        .attr("x1", "0%")
+        .attr("x2", "100%")
+        .attr("y1", "0%")
+        .attr("y2", "0%");
+    gradient1.append("stop")
+        .attr('class', 'start')
+        .attr("offset", "0%")
+        .attr("stop-color", "white")
+        .attr("stop-opacity", 1);
+    gradient1.append("stop")
+        .attr('class', 'end')
+        .attr("offset", "100%")
+        .attr("stop-color", "yellow")
+        .attr("stop-opacity", 1);
+
+
+    var gradient2 = defs.append("linearGradient")
+        .attr("id", "gradient2")
+        .attr("x1", "0%")
+        .attr("x2", "100%")
+        .attr("y1", "0%")
+        .attr("y2", "0%");
+    gradient2.append("stop")
+        .attr('class', 'start')
+        .attr("offset", "0%")
+        .attr("stop-color", "yellow")
+        .attr("stop-opacity", 1);
+    gradient2.append("stop")
+        .attr('class', 'end')
+        .attr("offset", "100%")
+        .attr("stop-color", "orange")
+        .attr("stop-opacity", 1);
+
+    var gradient3 = defs.append("linearGradient")
+        .attr("id", "gradient3")
+        .attr("x1", "0%")
+        .attr("x2", "100%")
+        .attr("y1", "0%")
+        .attr("y2", "0%");
+    gradient3.append("stop")
+        .attr('class', 'start')
+        .attr("offset", "0%")
+        .attr("stop-color", "orange")
+        .attr("stop-opacity", 1);
+    gradient3.append("stop")
+        .attr('class', 'end')
+        .attr("offset", "100%")
+        .attr("stop-color", "red")
+        .attr("stop-opacity", 1);
+
+    var gradient4 = defs.append("linearGradient")
+        .attr("id", "gradient4")
+        .attr("x1", "0%")
+        .attr("x2", "100%")
+        .attr("y1", "0%")
+        .attr("y2", "0%");
+    gradient4.append("stop")
+        .attr('class', 'start')
+        .attr("offset", "0%")
+        .attr("stop-color", "red")
+        .attr("stop-opacity", 1);
+    gradient4.append("stop")
+        .attr('class', 'end')
+        .attr("offset", "100%")
+        .attr("stop-color", "black")
+        .attr("stop-opacity", 1);
+
     mainGraph.append("path")
         .data([data])
         .attr("class", "line")
         .attr("d", line)
         .attr("id", id)
+        .attr("stroke", function(d) {
+            if (id == 'section1') {
+                return "url(#gradient1)"
+            } else if (id == 'section2') {
+                return "url(#gradient2)"
+            } else if (id == 'section3') {
+                return "url(#gradient3)"
+            } else if (id == 'section4') {
+                return "url(#gradient4)"
+            }
+        })
         .call(mainGraphTransition);
 }
 
@@ -166,53 +325,7 @@ var finalGraph = d3.select("#finalGraph").append("svg")
     .append("g")
     .attr("transform", "translate(" + marginFinalGraph.left + "," + marginFinalGraph.top + ")");
 
-var stabilisedData;
 
-d3.csv('data/stabilisedData.csv')
-    .then(function(data) {
-        console.log(data);
-
-        data.forEach(function(d) {
-            d.Year = d.Year;
-            d.Annomaly = +d.Annomaly;
-        });
-
-        stabilisedData = data;
-
-        // creates fixed values on the axis
-        xFinalGraph.domain([1880, 2150]).nice();
-        yFinalGraph.domain([0, 9]).nice();
-
-        finalGraph.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + heightFinalGraph + ")")
-            .call(xAxisFinalGraph);
-
-        finalGraph.append("g")
-            .attr("class", "y axis")
-            .call(yAxisFinalGraph)
-            .append("text")
-            // .attr("transform", "rotate(-90)")
-            // .attr("y", 10)
-            .attr("dy", "1em")
-            .attr("dx", "-0.5em")
-            .style("text-anchor", "end")
-            .text("°C");
-
-        finalGraph.append("path")
-            .data([allData])
-            .attr("class", "line")
-            .attr("d", lineFinalGraph)
-
-        // finalGraph.append("path")
-        //     .data([stabilisedData])
-        //     .attr("class", "line")
-        //     .attr("d", lineFinalGraph)
-
-    })
-    .catch(function(error) {
-        throw error;
-    })
 
 
 function finalGraphTransition(path) {
@@ -313,8 +426,9 @@ function animateFinalGraph() {
         .attr("cy", function(d) { return yFinalGraph(1.21) })
         .attr("r", 15)
         .attr("fill", "none")
-        .attr("stroke", "red")
-        .attr("stroke-width", "2.5px")
+        .attr("stroke", "white")
+        .attr("stroke-width", "3px")
+        .attr("filter", "blur(1px)")
         .attr("stroke-opacity", 0)
         .transition()
         .duration(2000)
@@ -421,18 +535,31 @@ function DrawMapSection2() {
             .style("fill-opacity", 0.6)
             .style("filter", "blur(3px)");
 
-        node.append("text")
-            .attr("text-anchor", "middle")
-            .attr("dy", ".3em")
-            .attr("dx", function(d) {
-                return projection([d.x, d.y])[0]; // for position of text using projection to convert lat & long
+        node.append('foreignObject')
+            .attr('x', function(d) {
+                return projection([d.x, d.y])[0] - 55; // for position of text using projection to convert lat & long
             })
-            .attr("dy", function(d) {
-                return projection([d.x, d.y])[1];
+            .attr('y', function(d) {
+                return projection([d.x, d.y])[1] - 14;
             })
-            .text(function(d) {
+            .attr('width', 120)
+            .attr('height', 50)
+            .html(function(d) {
                 return d.name
             });
+
+        // node.append("text")
+        //     .attr("text-anchor", "middle")
+        //     .attr("dy", ".3em")
+        //     .attr("dx", function(d) {
+        //         return projection([d.x, d.y])[0]; // for position of text using projection to convert lat & long
+        //     })
+        //     .attr("dy", function(d) {
+        //         return projection([d.x, d.y])[1];
+        //     })
+        //     .text(function(d) {
+        //         return d.name
+        //     });
 
         var path = node.append("path")
             .data(jsonlinks.filter(function(d) { return d.temp == "1-3"; }))
@@ -555,20 +682,31 @@ function DrawMapSection3() {
             .style("fill-opacity", 0.6)
             .style("filter", "blur(3px)");
 
-        node.append("text")
-            .attr("text-anchor", "middle")
-            .attr("dy", ".3em")
-            .attr("dx", function(d) {
-                return projection([d.x, d.y])[0]; // for position of text using projection to convert lat & long
+        node.append('foreignObject')
+            .attr('x', function(d) {
+                return projection([d.x, d.y])[0] - 55; // for position of text using projection to convert lat & long
             })
-            .attr("dy", function(d) {
-                return projection([d.x, d.y])[1];
+            .attr('y', function(d) {
+                return projection([d.x, d.y])[1] - 14;
             })
-            .text(function(d) {
+            .attr('width', 120)
+            .attr('height', 50)
+            .html(function(d) {
                 return d.name
             });
-        // .style("word-wrap", "break-word");
-        // .attr("width", "50px");
+
+        // node.append("text")
+        //     .attr("text-anchor", "middle")
+        //     .attr("dy", ".3em")
+        //     .attr("dx", function(d) {
+        //         return projection([d.x, d.y])[0]; // for position of text using projection to convert lat & long
+        //     })
+        //     .attr("dy", function(d) {
+        //         return projection([d.x, d.y])[1];
+        //     })
+        //     .text(function(d) {
+        //         return d.name
+        //     });
 
         var defs = svg.append("defs");
 
@@ -692,7 +830,7 @@ function DrawMapSection4() {
                         return "group-3"
                     }
                 }
-            })
+            });
 
         node.append("ellipse")
             .attr('cx', function(d) {
@@ -709,18 +847,31 @@ function DrawMapSection4() {
             .style("fill-opacity", 0.6)
             .style("filter", "blur(3px)");
 
-        node.append("text")
-            .attr("text-anchor", "middle")
-            .attr("dy", ".3em")
-            .attr("dx", function(d) {
-                return projection([d.x, d.y])[0]; // for position of text using projection to convert lat & long
+        node.append('foreignObject')
+            .attr('x', function(d) {
+                return projection([d.x, d.y])[0] - 55; // for position of text using projection to convert lat & long
             })
-            .attr("dy", function(d) {
-                return projection([d.x, d.y])[1];
+            .attr('y', function(d) {
+                return projection([d.x, d.y])[1] - 14;
             })
-            .text(function(d) {
+            .attr('width', 120)
+            .attr('height', 50)
+            .html(function(d) {
                 return d.name
-            });
+            })
+
+        // node.append("text")
+        //     .attr("text-anchor", "middle")
+        //     .attr("dy", ".3em")
+        //     .attr("dx", function(d) {
+        //         return projection([d.x, d.y])[0]; // for position of text using projection to convert lat & long
+        //     })
+        //     .attr("dy", function(d) {
+        //         return projection([d.x, d.y])[1];
+        //     })
+        //     .text(function(d) {
+        //         return d.name
+        //     });
 
         var defs = svg.append("defs");
 
