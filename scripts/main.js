@@ -1,4 +1,4 @@
-/************************** MAP ****************************/
+/*************************************** MAP ***************************************/
 
 var width = 1024,
     height = 1000;
@@ -237,11 +237,7 @@ function drawSectionFinalGraph(data, line, id) {
 }
 
 
-/************* Graph animations functions **************/
-
-var nodedata = []; // store nodes information
-var jsonlinks = [];
-
+/**************************** Graph Animations functions ******************************/
 
 function mainGraphAnimationSection1() {
     var start_index = 0;
@@ -252,8 +248,6 @@ function mainGraphAnimationSection1() {
     if (d3.selectAll(".group-3")._groups[0].length > 0) { d3.selectAll(".group-3").remove(); }
     d3.select("#section2").remove();
     d3.select("#section1").remove();
-    nodedata = [];
-    jsonlinks = [];
     drawSectionMainGraph(section, line, "section1");
 };
 
@@ -261,8 +255,6 @@ function mainGraphAnimationSection2() {
     var start_index = 144;
     var end_index = 200;
     var section = allData.slice(start_index, end_index);
-    //code for map
-    DrawMapSection2();
     d3.select("#section3").remove();
     d3.select("#section2").remove();
     drawSectionMainGraph(section, line, "section2");
@@ -272,7 +264,6 @@ function mainGraphAnimationSection3() {
     var start_index = 199;
     var end_index = 234;
     var section = allData.slice(start_index, end_index);
-    DrawMapSection3();
     d3.select("#section4").remove();
     d3.select("#section3").remove();
     drawSectionMainGraph(section, line, "section3");
@@ -282,7 +273,6 @@ function mainGraphAnimationSection4() {
     var start_index = 233;
     var end_index = 272;
     var section = allData.slice(start_index, end_index);
-    DrawMapSection4();
     d3.select("#section4").remove();
     drawSectionMainGraph(section, line, "section4");
 };
@@ -330,9 +320,19 @@ function removeAllGraphSections() {
     d3.select("#tipping-pt").remove();
 }
 
+
+
+/***************************************** Map Animations ************************************************/
+
+var nodedata = []; // store nodes information
+var jsonlinks = []; // store connections information
+
 function DrawMapSection2() {
+
+    // remove last group
     if (d3.selectAll(".group-2")._groups[0].length > 0) {
         d3.selectAll(".group-2").remove();
+
         nodedata.forEach(function(d, i) {
             if (d.tempStart == 3 && d.tempEnd == 5) {
                 nodedata.splice(i, 10);
@@ -345,22 +345,29 @@ function DrawMapSection2() {
             }
         });
     }
-    if (d3.selectAll(".group-1")._groups[0].length > 0) { d3.selectAll(".group-1").remove(); }
-    if (d3.selectAll(".group-3")._groups[0].length > 0) { d3.selectAll(".group-3").remove(); }
+
+    if (d3.selectAll(".group-1")._groups[0].length > 0) {
+        d3.selectAll(".group-1").remove();
+    }
+    if (d3.selectAll(".group-3")._groups[0].length > 0) {
+        d3.selectAll(".group-3").remove();
+    }
+
     d3.json("data/GraphData.json").then(function(json) {
         json.nodes.forEach(function(d, i) {
             if (d.tempStart == 1 && d.tempEnd == 3) {
                 if (nodedata.some(e => e.name == d.name)) {
-                    console.log("Yes it contains");
+
                 } else {
                     nodedata.push(d);
                 }
             }
         });
+
         json.links.forEach(function(d, i) {
             if (d.temp == "1-3") {
                 if (jsonlinks.some(e => e.source == d.source && e.target == d.target)) {
-                    console.log("Yes it contains target");
+
                 } else {
                     jsonlinks.push(d);
                 }
@@ -370,17 +377,8 @@ function DrawMapSection2() {
         var node = svg.selectAll(".node")
             .data(nodedata)
             .enter().append("g")
-            .attr("class", function(d) {
-                if (d.tempStart == 1 && d.tempEnd == 3) {
-                    return "group-1"
-                } else {
-                    if (d.tempStart == 3 && d.tempEnd == 5) {
-                        return "group-2"
-                    } else {
-                        return "group-3"
-                    }
-                }
-            })
+            .attr("class", "group-1");
+
         node.append("ellipse")
             .attr('cx', function(d) {
                 return projection([d.x, d.y])[0];
@@ -414,15 +412,18 @@ function DrawMapSection2() {
             .style("fill", "none")
             //.attr("pointer-events", "visibleStroke")
             .style("stroke-width", 0)
+            .attr("d", function(d) { // position of links depends on this
+                var dx = nodedata[d.target].x - nodedata[d.source].x,
+                    dy = nodedata[d.target].y - nodedata[d.source].y,
+                    dr = Math.sqrt(dx * dx + dy * dy);
 
-        .attr("d", function(d) { // position of links depends on this
-            //console.log(d);
-            var dx = nodedata[d.target].x - nodedata[d.source].x,
-                dy = nodedata[d.target].y - nodedata[d.source].y,
-                dr = Math.sqrt(dx * dx + dy * dy);
-
-            return "M" + projection([nodedata[d.source].x, nodedata[d.source].y])[0] + "," + projection([nodedata[d.source].x, nodedata[d.source].y])[1] + "A" + dr + "," + dr + " 0 0,1 " + projection([nodedata[d.target].x, nodedata[d.target].y])[0] + "," + projection([nodedata[d.target].x, nodedata[d.target].y])[1];
-        });
+                return "M" +
+                    projection([nodedata[d.source].x, nodedata[d.source].y])[0] + "," +
+                    projection([nodedata[d.source].x, nodedata[d.source].y])[1] +
+                    "A" + dr + "," + dr + " 0 0,1 " +
+                    projection([nodedata[d.target].x, nodedata[d.target].y])[0] + "," +
+                    projection([nodedata[d.target].x, nodedata[d.target].y])[1];
+            });
         var totalLength = path.node().getTotalLength();
         path
             .attr("stroke-dasharray", totalLength + " " + totalLength)
@@ -456,18 +457,14 @@ function DrawMapSection3() {
     d3.json("data/GraphData.json").then(function(json) {
         json.nodes.forEach(function(d, i) {
             if (d.tempStart == 3 && d.tempEnd == 5) {
-                if (nodedata.some(e => e.name == d.name)) {
-                    console.log("Yes it contains");
-                } else {
+                if (nodedata.some(e => e.name == d.name)) {} else {
                     nodedata.push(d);
                 }
             }
         });
         json.links.forEach(function(d, i) {
             if (d.temp == "3-5") {
-                if (jsonlinks.some(e => e.source == d.source && e.target == d.target)) {
-                    console.log("Yes it contains target");
-                } else {
+                if (jsonlinks.some(e => e.source == d.source && e.target == d.target)) {} else {
                     jsonlinks.push(d);
                 }
             }
@@ -620,10 +617,14 @@ function DrawMapSection4() {
 }
 
 
+
+
 /*************************************** ANIMATION FUNCTIONS *********************************/
 
 
 function section1Animation() {
+    nodedata = [];
+    jsonlinks = [];
     animationStart();
     mainGraphAnimationSection1();
 }
@@ -631,16 +632,19 @@ function section1Animation() {
 function section2Animation() {
     animationStart();
     mainGraphAnimationSection2();
+    DrawMapSection2();
 }
 
 function section3Animation() {
     animationStart();
     mainGraphAnimationSection3();
+    DrawMapSection3();
 }
 
 function section4Animation() {
     animationStart();
     mainGraphAnimationSection4();
+    DrawMapSection4();
 }
 
 function resetAllAnimations() {
