@@ -249,6 +249,18 @@ function mainGraphAnimationSection1() {
     d3.select("#section2").remove();
     d3.select("#section1").remove();
     drawSectionMainGraph(section, line, "section1");
+
+    // fade in world map
+    $(".land").animate({
+        opacity: 1,
+    }, 4000, function () {
+        // Animation complete.
+    });
+    $("#map").animate({
+        opacity: 1,
+    }, 4000, function () {
+        // Animation complete.
+    });
 };
 
 function mainGraphAnimationSection2() {
@@ -674,6 +686,11 @@ function resetAllAnimations() {
         // Animation complete.
     });
 
+
+    // reset world map
+    $(".land").css("opacity", 0);
+    $("#map").css("opacity", 0);
+
     //reset processes
     //reset connections
 }
@@ -736,7 +753,11 @@ $.scrollify({
     },
     after: function(i, panels) {
         var section, start_index, end_index;
-        if (i == 1) {
+        if (i == 0) {
+            // reset world map
+            $(".land").css("opacity", 0);
+            $("#map").css("opacity", 0);
+        } else if (i == 1) {
             section1Animation();
         } else if (i == 2) {
             section2Animation();
@@ -811,14 +832,10 @@ function startTimer() {
 }
 
 function restartApp() {
-
-
     $.scrollify.enable();
     resetAllAnimations();
     $.scrollify.move("#home");
     $('.scroll').show();
-
-  
 }
 
 /*

@@ -297,6 +297,7 @@ h4 {
 
 .land {
     fill: #222;
+    opacity: 0;
 }
 
 .boundary {
@@ -308,6 +309,7 @@ h4 {
 #map {
     padding-top: 108px;
     padding-left: 50px;
+    opacity: 0;
 }
 
 .container {
