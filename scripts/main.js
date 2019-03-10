@@ -459,12 +459,7 @@ $.scrollify({
             if ($(this).attr("data-section-name") != "home" && $(this).attr("data-section-name") != "end") {
                 pagination += "<li><a class=\"" +
                     activeClass +
-                    "\" href=\"#" +
-                    $(this).attr("data-section-name") +
-                    "\"><span class=\"hover-text\">" +
-                    $(this).attr("data-section-name").charAt(0).toUpperCase() +
-                    $(this).attr("data-section-name").slice(1) +
-                    "</span></a></li>";
+                    "\></a></li>";
             }
         });
 
