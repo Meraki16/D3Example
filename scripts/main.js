@@ -456,8 +456,7 @@ function DrawMapSection2() {
             });
 
         var totalLength = path.node().getTotalLength();
-        path
-            .attr("stroke-dasharray", totalLength + " " + totalLength)
+        path.attr("stroke-dasharray", totalLength + " " + totalLength)
             .attr("stroke-dashoffset", totalLength)
             .transition()
             .duration(4000)
@@ -559,11 +558,77 @@ function DrawMapSection3() {
         // .style("word-wrap", "break-word");
         // .attr("width", "50px");
 
+        var defs = svg.append("defs");
+
+        var gradientVertical = defs.append("linearGradient")
+            .attr("id", "orangeYellowVerticalGradient")
+            .attr("x1", "0%")
+            .attr("x2", "0%")
+            .attr("y1", "0%")
+            .attr("y2", "100%");
+        gradientVertical.append("stop")
+            .attr('class', 'start')
+            .attr("offset", "0%")
+            .attr("stop-color", "orange")
+            .attr("stop-opacity", 1);
+        gradientVertical.append("stop")
+            .attr('class', 'end')
+            .attr("offset", "100%")
+            .attr("stop-color", "yellow")
+            .attr("stop-opacity", 1);
+
+        var gradientHorizontal = defs.append("linearGradient")
+            .attr("id", "orangeYellowHorizontalGradient")
+            .attr("x1", "0%")
+            .attr("x2", "100%")
+            .attr("y1", "0%")
+            .attr("y2", "0%");
+        gradientHorizontal.append("stop")
+            .attr('class', 'start')
+            .attr("offset", "0%")
+            .attr("stop-color", "orange")
+            .attr("stop-opacity", 1);
+        gradientHorizontal.append("stop")
+            .attr('class', 'end')
+            .attr("offset", "100%")
+            .attr("stop-color", "yellow")
+            .attr("stop-opacity", 1);
+
+        var gradientOppositeVertical = defs.append("linearGradient")
+            .attr("id", "yellowOrangeVerticalGradient")
+            .attr("x1", "0%")
+            .attr("x2", "0%")
+            .attr("y1", "0%")
+            .attr("y2", "100%");
+        gradientOppositeVertical.append("stop")
+            .attr('class', 'start')
+            .attr("offset", "0%")
+            .attr("stop-color", "yellow")
+            .attr("stop-opacity", 1);
+        gradientOppositeVertical.append("stop")
+            .attr('class', 'end')
+            .attr("offset", "100%")
+            .attr("stop-color", "orange")
+            .attr("stop-opacity", 1);
+
         var path = node.append("path")
             .data(currdata)
             .attr("class", "link-group-2")
             .style("fill", "none")
             .style("stroke-width", 0)
+            .attr("stroke", function(d) {
+                if (d.source == 6) {
+                    return "url(#orangeYellowHorizontalGradient)"
+                }
+                if ((d.source == 7 && d.target == 4) || (d.source == 8 && d.target == 4)) {
+                    return "url(#orangeYellowVerticalGradient)"
+                } else if ((d.source == 0 && d.target == 8)) {
+                    return "url(#yellowOrangeVerticalGradient)"
+
+                } else {
+                    return "orange"
+                }
+            })
             .attr("d", function(d) { // position of links depends on this
                 //console.log(d);
                 var dx = nodedata[d.target].x - nodedata[d.source].x,
@@ -645,12 +710,32 @@ function DrawMapSection4() {
                 return d.name
             });
 
+        var defs = svg.append("defs");
+
+        var gradientRedVertical = defs.append("linearGradient")
+            .attr("id", "yellowRedVerticalGradient")
+            .attr("x1", "0%")
+            .attr("x2", "0%")
+            .attr("y1", "0%")
+            .attr("y2", "100%");
+        gradientRedVertical.append("stop")
+            .attr('class', 'start')
+            .attr("offset", "0%")
+            .attr("stop-color", "yellow")
+            .attr("stop-opacity", 1);
+        gradientRedVertical.append("stop")
+            .attr('class', 'end')
+            .attr("offset", "100%")
+            .attr("stop-color", "red")
+            .attr("stop-opacity", 1);
+
         var path = node.append("path")
             .data(jsonlinks.filter(function(d) { return d.temp == "5-99"; }))
             .attr("class", "link-group-3")
             .style("fill", "none")
             //.attr("pointer-events", "visibleStroke")
             .style("stroke-width", 0)
+            .attr("stroke", "url(#yellowRedVerticalGradient)")
             .attr("d", function(d) { // position of links depends on this
                 //console.log(d);
                 var dx = nodedata[d.target].x - nodedata[d.source].x,

@@ -360,17 +360,17 @@ h4 {
 }
 
 .link-group-1 {
-    stroke: yellow !important;
+    stroke: yellow;
     stroke-opacity: 0.6;
 }
 
 .link-group-2 {
-    stroke: orange !important;
+    /* stroke: orange; */
     stroke-opacity: 0.6;
 }
 
 .link-group-3 {
-    stroke: red !important;
+    /* stroke: red; */
     stroke-opacity: 0.6;
 }
 
