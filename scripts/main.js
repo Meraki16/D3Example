@@ -265,12 +265,12 @@ function mainGraphAnimationSection2() {
     //code for map
     if (d3.selectAll(".group-2")._groups[0].length > 0) {
         d3.selectAll(".group-2").remove();
-        nodedata.forEach(function (d, i) {
+        nodedata.forEach(function(d, i) {
             if (d.tempStart == 3 && d.tempEnd == 5) {
                 nodedata.splice(i, 10);
             }
         });
-        jsonlinks.forEach(function (d, i) {
+        jsonlinks.forEach(function(d, i) {
             if (d.temp == "3-5") {
                 // jsonlinks.pop(d);
                 jsonlinks.splice(i, 10);
@@ -279,23 +279,21 @@ function mainGraphAnimationSection2() {
     }
     if (d3.selectAll(".group-1")._groups[0].length > 0) { d3.selectAll(".group-1").remove(); }
     if (d3.selectAll(".group-3")._groups[0].length > 0) { d3.selectAll(".group-3").remove(); }
-    d3.json("data/GraphData.json").then(function (json) {
-        json.nodes.forEach(function (d, i) {
+    d3.json("data/GraphData.json").then(function(json) {
+        json.nodes.forEach(function(d, i) {
             if (d.tempStart == 1 && d.tempEnd == 3) {
                 if (nodedata.some(e => e.name == d.name)) {
                     console.log("Yes it contains");
-                }
-                else {
+                } else {
                     nodedata.push(d);
                 }
             }
         });
-        json.links.forEach(function (d, i) {
+        json.links.forEach(function(d, i) {
             if (d.temp == "1-3") {
                 if (jsonlinks.some(e => e.source == d.source && e.target == d.target)) {
                     console.log("Yes it contains target");
-                }
-                else {
+                } else {
                     jsonlinks.push(d);
                 }
             }
@@ -303,7 +301,7 @@ function mainGraphAnimationSection2() {
         var node = svg.selectAll(".node")
             .data(nodedata)
             .enter().append("g")
-            .attr("class", function (d) {
+            .attr("class", function(d) {
                 if (d.tempStart == 1 && d.tempEnd == 3) {
                     return "group-1"
                 } else {
@@ -320,7 +318,7 @@ function mainGraphAnimationSection2() {
             .style("fill", "none")
             .attr("pointer-events", "visibleStroke")
             .style("stroke-width", 3)
-            .attr("d", function (d) {   // position of links depends on this
+            .attr("d", function(d) { // position of links depends on this
                 //console.log(d);
                 var dx = nodedata[d.target].x - nodedata[d.source].x,
                     dy = nodedata[d.target].y - nodedata[d.source].y,
@@ -332,10 +330,10 @@ function mainGraphAnimationSection2() {
         node.append("ellipse")
             .attr("rx", "60")
             .attr("ry", "16")
-            .attr('cx', function (d) {
+            .attr('cx', function(d) {
                 return projection([d.x, d.y])[0];
             })
-            .attr('cy', function (d) {
+            .attr('cy', function(d) {
                 return projection([d.x, d.y])[1];
             })
             .style("fill-opacity", 0.6)
@@ -343,13 +341,13 @@ function mainGraphAnimationSection2() {
         node.append("text")
             .attr("text-anchor", "middle")
             .attr("dy", ".3em")
-            .attr("dx", function (d) {
-                return projection([d.x, d.y])[0];   // for position of text using projection to convert lat & long
+            .attr("dx", function(d) {
+                return projection([d.x, d.y])[0]; // for position of text using projection to convert lat & long
             })
-            .attr("dy", function (d) {
+            .attr("dy", function(d) {
                 return projection([d.x, d.y])[1];
             })
-            .text(function (d) {
+            .text(function(d) {
                 return d.name
             });
     });
@@ -368,12 +366,12 @@ function mainGraphAnimationSection3() {
     // code for map
     if (d3.selectAll(".group-3")._groups[0].length > 0) {
         d3.selectAll(".group-3").remove();
-        nodedata.forEach(function (d, i) {
+        nodedata.forEach(function(d, i) {
             if (d.tempStart == 5 && d.tempEnd == 99) {
                 nodedata.splice(i, 4);
             }
         });
-        jsonlinks.forEach(function (d, i) {
+        jsonlinks.forEach(function(d, i) {
             if (d.temp == "5-99") {
                 // jsonlinks.pop(d);
                 jsonlinks.splice(i, 4);
@@ -382,23 +380,21 @@ function mainGraphAnimationSection3() {
     }
     if (d3.selectAll(".group-2")._groups[0].length > 0) { d3.selectAll(".group-2").remove(); }
     if (d3.selectAll(".group-1")._groups[0].length > 0) { d3.selectAll(".group-1").remove(); }
-    d3.json("data/GraphData.json").then(function (json) {
-        json.nodes.forEach(function (d, i) {
+    d3.json("data/GraphData.json").then(function(json) {
+        json.nodes.forEach(function(d, i) {
             if (d.tempStart == 3 && d.tempEnd == 5) {
                 if (nodedata.some(e => e.name == d.name)) {
                     console.log("Yes it contains");
-                }
-                else {
+                } else {
                     nodedata.push(d);
                 }
             }
         });
-        json.links.forEach(function (d, i) {
+        json.links.forEach(function(d, i) {
             if (d.temp == "3-5") {
                 if (jsonlinks.some(e => e.source == d.source && e.target == d.target)) {
                     console.log("Yes it contains target");
-                }
-                else {
+                } else {
                     jsonlinks.push(d);
                 }
             }
@@ -406,7 +402,7 @@ function mainGraphAnimationSection3() {
         var node = svg.selectAll(".node")
             .data(nodedata)
             .enter().append("g")
-            .attr("class", function (d) {
+            .attr("class", function(d) {
                 if (d.tempStart == 1 && d.tempEnd == 3) {
                     return "group-1"
                 } else {
@@ -423,7 +419,7 @@ function mainGraphAnimationSection3() {
             .style("fill", "none")
             .attr("pointer-events", "visibleStroke")
             .style("stroke-width", 3)
-            .attr("d", function (d) {   // position of links depends on this
+            .attr("d", function(d) { // position of links depends on this
                 //console.log(d);
                 var dx = nodedata[d.target].x - nodedata[d.source].x,
                     dy = nodedata[d.target].y - nodedata[d.source].y,
@@ -435,10 +431,10 @@ function mainGraphAnimationSection3() {
         node.append("ellipse")
             .attr("rx", "60")
             .attr("ry", "16")
-            .attr('cx', function (d) {
+            .attr('cx', function(d) {
                 return projection([d.x, d.y])[0];
             })
-            .attr('cy', function (d) {
+            .attr('cy', function(d) {
                 return projection([d.x, d.y])[1];
             })
             .style("fill-opacity", 0.6)
@@ -446,13 +442,13 @@ function mainGraphAnimationSection3() {
         node.append("text")
             .attr("text-anchor", "middle")
             .attr("dy", ".3em")
-            .attr("dx", function (d) {
-                return projection([d.x, d.y])[0];   // for position of text using projection to convert lat & long
+            .attr("dx", function(d) {
+                return projection([d.x, d.y])[0]; // for position of text using projection to convert lat & long
             })
-            .attr("dy", function (d) {
+            .attr("dy", function(d) {
                 return projection([d.x, d.y])[1];
             })
-            .text(function (d) {
+            .text(function(d) {
                 return d.name
             });
     });
@@ -467,13 +463,13 @@ function mainGraphAnimationSection4() {
     var end_index = 272;
     var section = allData.slice(start_index, end_index);
     // code for map
-    d3.json("data/GraphData.json").then(function (json) {
-        json.nodes.forEach(function (d, i) {
+    d3.json("data/GraphData.json").then(function(json) {
+        json.nodes.forEach(function(d, i) {
             if (d.tempStart == 5 && d.tempEnd == 99) {
                 nodedata.push(d);
             }
         });
-        json.links.forEach(function (d, i) {
+        json.links.forEach(function(d, i) {
             if (d.temp == "5-99") {
                 jsonlinks.push(d);
             }
@@ -481,7 +477,7 @@ function mainGraphAnimationSection4() {
         var node = svg.selectAll(".node")
             .data(nodedata)
             .enter().append("g")
-            .attr("class", function (d) {
+            .attr("class", function(d) {
                 if (d.tempStart == 1 && d.tempEnd == 3) {
                     return "group-1"
                 } else {
@@ -498,7 +494,7 @@ function mainGraphAnimationSection4() {
             .style("fill", "none")
             .attr("pointer-events", "visibleStroke")
             .style("stroke-width", 3)
-            .attr("d", function (d) {   // position of links depends on this
+            .attr("d", function(d) { // position of links depends on this
                 //console.log(d);
                 var dx = nodedata[d.target].x - nodedata[d.source].x,
                     dy = nodedata[d.target].y - nodedata[d.source].y,
@@ -510,23 +506,23 @@ function mainGraphAnimationSection4() {
         node.append("ellipse")
             .attr("rx", "60")
             .attr("ry", "16")
-            .attr('cx', function (d) {
+            .attr('cx', function(d) {
                 return projection([d.x, d.y])[0];
             })
-            .attr('cy', function (d) {
+            .attr('cy', function(d) {
                 return projection([d.x, d.y])[1];
             })
             .style("fill-opacity", 0.6)
         node.append("text")
             .attr("text-anchor", "middle")
             .attr("dy", ".3em")
-            .attr("dx", function (d) {
-                return projection([d.x, d.y])[0];   // for position of text using projection to convert lat & long
+            .attr("dx", function(d) {
+                return projection([d.x, d.y])[0]; // for position of text using projection to convert lat & long
             })
-            .attr("dy", function (d) {
+            .attr("dy", function(d) {
                 return projection([d.x, d.y])[1];
             })
-            .text(function (d) {
+            .text(function(d) {
                 return d.name
             });
     });
@@ -649,7 +645,9 @@ $.scrollify({
             if ($(this).attr("data-section-name") != "home" && $(this).attr("data-section-name") != "end") {
                 pagination += "<li><a class=\"" +
                     activeClass +
-                    "\></a></li>";
+                    "\" href=\"#" +
+                    $(this).attr("data-section-name") +
+                    "\"></a></li>";
             }
         });
 
