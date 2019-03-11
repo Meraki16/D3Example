@@ -148,17 +148,17 @@ d3.csv('data/temperatureData.csv')
                 finalGradient.append("stop")
                     .attr('class', 'stop2')
                     .attr("offset", "40%")
-                    .attr("stop-color", "yellow")
+                    .attr("stop-color", "gold")
                     .attr("stop-opacity", 1);
                 finalGradient.append("stop")
                     .attr('class', 'stop3')
-                    .attr("offset", "65%")
+                    .attr("offset", "75%")
                     .attr("stop-color", "orange")
                     .attr("stop-opacity", 1);
                 finalGradient.append("stop")
                     .attr('class', 'stop4')
-                    .attr("offset", "80%")
-                    .attr("stop-color", "red")
+                    .attr("offset", "90%")
+                    .attr("stop-color", "orangered")
                     .attr("stop-opacity", 1);
                 finalGradient.append("stop")
                     .attr('class', 'stop5')
@@ -214,7 +214,7 @@ function drawSectionMainGraph(data, line, id) {
     gradient1.append("stop")
         .attr('class', 'end')
         .attr("offset", "100%")
-        .attr("stop-color", "yellow")
+        .attr("stop-color", "gold")
         .attr("stop-opacity", 1);
 
 
@@ -227,7 +227,7 @@ function drawSectionMainGraph(data, line, id) {
     gradient2.append("stop")
         .attr('class', 'start')
         .attr("offset", "0%")
-        .attr("stop-color", "yellow")
+        .attr("stop-color", "gold")
         .attr("stop-opacity", 1);
     gradient2.append("stop")
         .attr('class', 'end')
@@ -249,7 +249,7 @@ function drawSectionMainGraph(data, line, id) {
     gradient3.append("stop")
         .attr('class', 'end')
         .attr("offset", "100%")
-        .attr("stop-color", "red")
+        .attr("stop-color", "orangered")
         .attr("stop-opacity", 1);
 
     var gradient4 = defs.append("linearGradient")
@@ -261,7 +261,7 @@ function drawSectionMainGraph(data, line, id) {
     gradient4.append("stop")
         .attr('class', 'start')
         .attr("offset", "0%")
-        .attr("stop-color", "red")
+        .attr("stop-color", "orangered")
         .attr("stop-opacity", 1);
     gradient4.append("stop")
         .attr('class', 'end')
@@ -536,8 +536,8 @@ function DrawMapSection2() {
             .ease(d3.easeLinear)
             .attr("rx", 75)
             .attr("ry", 35)
-            .style("fill-opacity", 0.5)
-            .style("filter", "blur(7px)");
+            .style("fill-opacity", 0.7)
+            .style("filter", "blur(9px)");
 
         node.append('foreignObject')
             .attr('x', function(d) {
@@ -687,8 +687,8 @@ function DrawMapSection3() {
             .ease(d3.easeLinear)
             .attr("rx", 75)
             .attr("ry", 35)
-            .style("fill-opacity", 0.5)
-            .style("filter", "blur(7px)");
+            .style("fill-opacity", 0.7)
+            .style("filter", "blur(9px)");
 
         node.append('foreignObject')
             .attr('x', function(d) {
@@ -735,7 +735,7 @@ function DrawMapSection3() {
         gradientVertical.append("stop")
             .attr('class', 'end')
             .attr("offset", "100%")
-            .attr("stop-color", "yellow")
+            .attr("stop-color", "gold")
             .attr("stop-opacity", 1);
 
         var gradientHorizontal = defs.append("linearGradient")
@@ -752,7 +752,7 @@ function DrawMapSection3() {
         gradientHorizontal.append("stop")
             .attr('class', 'end')
             .attr("offset", "100%")
-            .attr("stop-color", "yellow")
+            .attr("stop-color", "gold")
             .attr("stop-opacity", 1);
 
         var gradientOppositeVertical = defs.append("linearGradient")
@@ -764,7 +764,7 @@ function DrawMapSection3() {
         gradientOppositeVertical.append("stop")
             .attr('class', 'start')
             .attr("offset", "0%")
-            .attr("stop-color", "yellow")
+            .attr("stop-color", "gold")
             .attr("stop-opacity", 1);
         gradientOppositeVertical.append("stop")
             .attr('class', 'end')
@@ -855,8 +855,8 @@ function DrawMapSection4() {
             .ease(d3.easeLinear)
             .attr("rx", 75)
             .attr("ry", 35)
-            .style("fill-opacity", 0.5)
-            .style("filter", "blur(7px)");
+            .style("fill-opacity", 0.7)
+            .style("filter", "blur(9px)");
 
         node.append('foreignObject')
             .attr('x', function(d) {
@@ -898,12 +898,12 @@ function DrawMapSection4() {
         gradientYellowRedVertical.append("stop")
             .attr('class', 'start')
             .attr("offset", "0%")
-            .attr("stop-color", "yellow")
+            .attr("stop-color", "gold")
             .attr("stop-opacity", 1);
         gradientYellowRedVertical.append("stop")
             .attr('class', 'end')
             .attr("offset", "100%")
-            .attr("stop-color", "red")
+            .attr("stop-color", "orangered")
             .attr("stop-opacity", 1);
 
         var gradientOrangeRedVertical = defs.append("linearGradient")
@@ -920,7 +920,7 @@ function DrawMapSection4() {
         gradientOrangeRedVertical.append("stop")
             .attr('class', 'end')
             .attr("offset", "100%")
-            .attr("stop-color", "red")
+            .attr("stop-color", "orangered")
             .attr("stop-opacity", 1);
 
         var path = node.append("path")

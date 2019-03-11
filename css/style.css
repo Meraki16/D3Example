@@ -94,6 +94,7 @@ h4 {
 .tipping-pt-text {
     color: white;
     font-weight: 900;
+    font-style: bold;
 }
 
 .axis text {
@@ -406,7 +407,7 @@ h4 {
 }
 
 .group-1 ellipse {
-    fill: yellow;
+    fill: #FFD700;
     position: fixed;
     animation: 500ms ellipse-group-1 infinite ease;
 }
@@ -417,12 +418,12 @@ h4 {
 }
 
 .group-3 ellipse {
-    fill: red;
+    fill: orangered;
     animation: 500ms ellipse-group-3 infinite ease;
 }
 
 .link-group-1 {
-    stroke: yellow;
+    stroke: gold;
     stroke-opacity: 0.6;
     position: absolute;
     z-index: -1;
@@ -448,9 +449,10 @@ h4 {
 
 foreignObject {
     text-align: center;
-    font-weight: 550;
+    font-weight: 500;
     position: absolute;
     z-index: 999;
+    font-family: 'Archivo', sans-serif;
 }
 
 
