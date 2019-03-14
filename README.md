@@ -6,5 +6,5 @@ In this course we attempted to explore new ways to visualize climate change data
 
 This project shows a comparison between two possible scenarios (hot house vs. stabilized earth pathway) while focusing on the impacts a hot house scenario can have on the Earth's future. 
 
-Access the project's preview [here](https://meraki16.github.io/ThePointOfNoReturn/Index.html).
+Access the project's preview [here](https://meraki16.github.io/ThePointOfNoReturn/Index.html) (online available on desktop).
 
