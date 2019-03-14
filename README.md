@@ -1,3 +1,4 @@
+permalink: /index.html
 # THE POINT OF NO RETURN
 
 Project developed on the context of the course _Beyond Heatmaps: Data Visualization for a Warming Planet_ offered at Hochschule für Künste Bremen by Moritz Stefaner in Winter Semester 18/19.
